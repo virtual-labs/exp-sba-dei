@@ -2,37 +2,258 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "In a 5G Service-Based Architecture (SBA), what is a Service?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "A dedicated physical connection between two network nodes",
+        "b": "A specific capability or function exposed by a Network Function",
+        "c": "A type of user equipment",
+        "d": "A hardware-based communication interface"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. Physical connections are not considered services in SBA.",
+        "b": "Correct. In SBA, a service is a specific capability or function offered by a Network Function.",
+        "c": "Incorrect. User Equipment (UE) is not part of SBA service definition.",
+        "d": "Incorrect. Services are logical, not hardware-based."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which of the following acts as a Service Producer in SBA?",
+      "answers": {
+        "a": "The Network Function consuming services",
+        "b": "The Network Function exposing services",
+        "c": "The Discovery Service",
+        "d": "The User Equipment (UE)"
+      },
+      "explanations": {
+        "a": "Incorrect. Consumers use services, not produce them.",
+        "b": "Correct. Service Producers expose their capabilities to others via APIs.",
+        "c": "Incorrect. Discovery Service only helps locate producers.",
+        "d": "Incorrect. UE is external to the core network."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which operation allows a Network Function to receive event updates automatically?",
+      "answers": {
+        "a": "Request",
+        "b": "Reply",
+        "c": "Subscribe",
+        "d": "Notify"
+      },
+      "explanations": {
+        "a": "Incorrect. Request initiates a one-time query.",
+        "b": "Incorrect. Reply is the response to a request.",
+        "c": "Correct. Subscription enables automatic event updates.",
+        "d": "Incorrect. Notify is used to send updates, not subscribe to them."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In the Point-to-Point (P2P) architecture, connections between NFs are:",
+      "answers": {
+        "a": "Dynamic and self-configuring",
+        "b": "Fixed and preconfigured",
+        "c": "Service-based and discoverable",
+        "d": "REST API-driven"
+      },
+      "explanations": {
+        "a": "Incorrect. P2P is static, not dynamic.",
+        "b": "Correct. P2P connections are fixed and manually configured.",
+        "c": "Incorrect. This describes SBA.",
+        "d": "Incorrect. REST APIs are used in SBA, not traditional P2P."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is a key drawback of P2P communication?",
+      "answers": {
+        "a": "High flexibility",
+        "b": "Loose coupling",
+        "c": "Tight coupling and rigid dependencies",
+        "d": "Easy scalability"
+      },
+      "explanations": {
+        "a": "Incorrect. P2P is not flexible.",
+        "b": "Incorrect. P2P is tightly coupled.",
+        "c": "Correct. P2P architectures have rigid interconnections.",
+        "d": "Incorrect. Scalability is a major challenge in P2P."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In SBA, what protocol is primarily used for communication between Network Functions?",
+      "answers": {
+        "a": "TCP/IP",
+        "b": "HTTP/2",
+        "c": "FTP",
+        "d": "SNMP"
+      },
+      "explanations": {
+        "a": "Incorrect. TCP/IP is underlying, not application-level.",
+        "b": "Correct. SBA uses HTTP/2 for inter-NF communication.",
+        "c": "Incorrect. FTP is for file transfers.",
+        "d": "Incorrect. SNMP is for network management."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which interface type allows components to discover and access services dynamically?",
+      "answers": {
+        "a": "Service-Based Interface (SBI)",
+        "b": "Physical Interface",
+        "c": "User Plane Interface",
+        "d": "Logical Link Interface"
+      },
+      "explanations": {
+        "a": "Correct. SBI enables dynamic service discovery and access.",
+        "b": "Incorrect. Physical interfaces connect hardware.",
+        "c": "Incorrect. User Plane handles data transfer, not discovery.",
+        "d": "Incorrect. Logical links do not provide discovery."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "In SBA, how does a component register its services?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "By sending an HTTP PUT request to the discovery service",
+        "b": "By manually configuring IP tables",
+        "c": "By using SSH connection",
+        "d": "By sending SMS to the core"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Correct. Registration is done via HTTP PUT to the discovery service.",
+        "b": "Incorrect. Manual IP configuration is not part of SBA.",
+        "c": "Incorrect. SSH is unrelated.",
+        "d": "Incorrect. SMS is for UE communication."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which HTTP/2 feature allows multiple requests and responses on a single connection?",
+      "answers": {
+        "a": "Multiplexing",
+        "b": "Header compression",
+        "c": "Binary encoding",
+        "d": "Persistent sessions"
+      },
+      "explanations": {
+        "a": "Correct. Multiplexing enables multiple parallel streams.",
+        "b": "Incorrect. Header compression reduces size, not concurrency.",
+        "c": "Incorrect. Binary encoding improves efficiency, not concurrency.",
+        "d": "Incorrect. Persistent sessions exist in HTTP/1.1 as well."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the main data format used for all Service-Based Interface (SBI) messages?",
+      "answers": {
+        "a": "XML",
+        "b": "YAML",
+        "c": "JSON",
+        "d": "CSV"
+      },
+      "explanations": {
+        "a": "Incorrect. XML was used in older architectures.",
+        "b": "Incorrect. YAML is not used for runtime data exchange.",
+        "c": "Correct. JSON is the standard message format in SBA.",
+        "d": "Incorrect. CSV is used for tabular data."
       },
       "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which HTTP method is used to delete a resource in REST API?",
+      "answers": {
+        "a": "POST",
+        "b": "PUT",
+        "c": "GET",
+        "d": "DELETE"
+      },
+      "explanations": {
+        "a": "Incorrect. POST is used to create resources.",
+        "b": "Incorrect. PUT updates or replaces resources.",
+        "c": "Incorrect. GET retrieves resources.",
+        "d": "Correct. DELETE removes a resource identified by URI."
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the main advantage of HTTP/2 over HTTP/1.1?",
+      "answers": {
+        "a": "Uses more connections for faster response",
+        "b": "Text-based message encoding",
+        "c": "Allows unlimited parallel streams on one connection",
+        "d": "Uses larger headers for better security"
+      },
+      "explanations": {
+        "a": "Incorrect. HTTP/2 reduces connections via multiplexing.",
+        "b": "Incorrect. HTTP/2 uses binary encoding.",
+        "c": "Correct. HTTP/2 supports multiple streams in a single TCP connection.",
+        "d": "Incorrect. Larger headers are inefficient."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which of the following is NOT a REST principle?",
+      "answers": {
+        "a": "Stateless communication",
+        "b": "Resource-based design",
+        "c": "Persistent client sessions",
+        "d": "Use of standard HTTP methods"
+      },
+      "explanations": {
+        "a": "Incorrect. Statelessness is a REST core principle.",
+        "b": "Incorrect. REST is resource-oriented.",
+        "c": "Correct. REST avoids persistent sessions to stay stateless.",
+        "d": "Incorrect. REST relies on standard HTTP methods like GET, POST, etc."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In JSON, data is represented using:",
+      "answers": {
+        "a": "Binary frames",
+        "b": "Key-value pairs",
+        "c": "Tables and rows",
+        "d": "XML tags"
+      },
+      "explanations": {
+        "a": "Incorrect. JSON is text-based.",
+        "b": "Correct. JSON represents data as key-value pairs.",
+        "c": "Incorrect. Tables and rows represent relational data.",
+        "d": "Incorrect. XML uses tags, not JSON."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the key advantage of SBA compared to P2P architecture?",
+      "answers": {
+        "a": "Tight integration between components",
+        "b": "Static service discovery",
+        "c": "Vendor lock-in and fixed protocols",
+        "d": "Modular and dynamic service interaction"
+      },
+      "explanations": {
+        "a": "Incorrect. SBA promotes loose coupling.",
+        "b": "Incorrect. Discovery is dynamic in SBA.",
+        "c": "Incorrect. SBA enables interoperability.",
+        "d": "Correct. SBA allows modular, dynamic, and scalable service interactions."
+      },
+      "correctAnswer": "d",
       "difficulty": "beginner"
     }
   ]
