@@ -1,1 +1,1400 @@
-/* You CSS goes in here */
+/* ============================================
+   5G SBA Dashboard Styles
+   ============================================ */
+
+/* CSS Variables for theming */
+:root {
+    --bg-primary: #1a252f;
+    --bg-secondary: #2c3e50;
+    --bg-tertiary: #34495e;
+    --text-primary: #ecf0f1;
+    --text-secondary: #bdc3c7;
+    --border-color: #34495e;
+    --accent-blue: #3498db;
+    --accent-green: #4caf50;
+    --accent-red: #e74c3c;
+    --accent-orange: #ff9800;
+    --accent-purple: #9b59b6;
+}
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+/* ============================================
+   Dashboard Container
+   ============================================ */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ============================================
+   Toolbar (Top Bar)
+   ============================================ */
+.toolbar {
+    background: var(--bg-secondary);
+    border-bottom: 2px solid var(--border-color);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.toolbar-left h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.toolbar-right {
+    display: flex;
+    gap: 10px;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: var(--accent-blue);
+    color: white;
+}
+
+.btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.btn-danger {
+    background: var(--accent-red);
+    color: white;
+}
+
+.btn-info {
+    background: var(--accent-green);
+    color: white;
+}
+
+.btn-block {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+.btn-cancel {
+    background: var(--accent-orange);
+    color: white;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   Main Content Area
+   ============================================ */
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* ============================================
+   Left Sidebar (NF Palette)
+   ============================================ */
+.sidebar-left {
+    width: 250px;
+    background: var(--bg-secondary);
+    border-right: 2px solid var(--border-color);
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar-left h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.nf-palette {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.nf-palette-item {
+    padding: 12px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nf-palette-item:hover {
+    border-color: var(--accent-blue);
+    transform: translateX(5px);
+}
+
+.nf-icon-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+}
+
+.nf-palette-item .nf-label {
+    flex: 1;
+}
+
+.nf-palette-item .nf-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.nf-palette-item .nf-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+/* Bus Controls */
+.bus-controls {
+    margin-top: 20px;
+}
+
+.bus-controls h3 {
+    color: var(--accent-orange);
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Connection Controls */
+.connection-controls {
+    margin-top: 20px;
+}
+
+/* ============================================
+   Canvas Container (Center)
+   ============================================ */
+.canvas-container {
+    flex: 1;
+    background: var(--bg-primary);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#main-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: default;
+    flex: 1;
+}
+
+.canvas-message {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(52, 152, 219, 0.9);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+    z-index: 10;
+    animation: fadeIn 0.3s ease;
+}
+
+.canvas-message.show {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* ============================================
+   Right Sidebar (Configuration Panel)
+   ============================================ */
+.sidebar-right {
+    width: 320px;
+    background: var(--bg-secondary);
+    border-left: 2px solid var(--border-color);
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Config panel h3 styles moved to .config-panel-header h3 */
+
+.hint {
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+#config-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+}
+
+/* Locked protocol dropdown styling */
+.form-group select:disabled {
+    background: var(--bg-secondary);
+    color: var(--accent-orange);
+    border-color: var(--accent-orange);
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* Configuration Panel Header and Toggle */
+.config-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.config-panel-header h3 {
+    font-size: 16px;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.btn-toggle-config {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    min-width: 24px;
+    text-align: center;
+}
+
+.btn-toggle-config:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Configuration Panel Collapsed State */
+.sidebar-right.collapsed {
+    width: 40px;
+    padding: 20px 8px;
+    transition: width 0.3s ease, padding 0.3s ease;
+}
+
+.sidebar-right.collapsed .config-panel-header h3 {
+    display: none;
+}
+
+.sidebar-right.collapsed #config-form {
+    display: none;
+}
+
+.sidebar-right.collapsed .btn-toggle-config {
+    transform: rotate(180deg);
+}
+
+/* ============================================
+   Log Panel (Bottom)
+   ============================================ */
+.log-panel {
+    height: 280px;
+    background: var(--bg-secondary);
+    border-top: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    transition: height 0.3s ease;
+}
+
+.log-panel.collapsed {
+    height: 45px;
+}
+
+.log-panel-header {
+    padding: 12px 16px;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 45px;
+}
+
+.log-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.log-panel-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.btn-toggle-logs {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.btn-toggle-logs:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.log-content {
+    flex: 1;
+    overflow-y: auto;
+    transition: opacity 0.3s ease;
+}
+
+.log-panel.collapsed .log-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.log-panel.collapsed .log-controls {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.log-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.log-controls select {
+    padding: 6px 10px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 12px;
+}
+
+.log-content {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    background: #1e1e1e;
+}
+
+/* Log Entry Styles */
+.log-entry {
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-left: 4px solid;
+    border-radius: 4px;
+    display: flex;
+    gap: 12px;
+    animation: slideIn 0.3s ease;
+    font-family: 'Courier New', monospace;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.log-entry.ERROR {
+    background: rgba(231, 76, 60, 0.15);
+    border-left-color: #e74c3c;
+    color: #ff6b6b;
+}
+
+.log-entry.WARNING {
+    background: rgba(255, 152, 0, 0.15);
+    border-left-color: #ff9800;
+    color: #ffa726;
+}
+
+.log-entry.INFO {
+    background: rgba(52, 152, 219, 0.15);
+    border-left-color: #3498db;
+    color: #74b9ff;
+}
+
+.log-entry.SUCCESS {
+    background: rgba(76, 175, 80, 0.15);
+    border-left-color: #4caf50;
+    color: #81c784;
+}
+
+.log-entry.DEBUG {
+    background: rgba(149, 165, 166, 0.1);
+    border-left-color: #95a5a6;
+    color: #bdc3c7;
+}
+
+.log-timestamp {
+    color: #7f8c8d;
+    min-width: 90px;
+    font-weight: 600;
+}
+
+.log-nf-name {
+    color: #3498db;
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.log-level {
+    font-weight: bold;
+    min-width: 80px;
+}
+
+.log-message {
+    flex: 1;
+    color: inherit;
+}
+
+.log-details {
+    font-size: 11px;
+    color: #95a5a6;
+    margin-top: 4px;
+    padding-left: 24px;
+    border-left: 2px solid rgba(149, 165, 166, 0.3);
+}
+
+/* Scrollbar Styling */
+.log-content::-webkit-scrollbar,
+.sidebar-left::-webkit-scrollbar,
+.sidebar-right::-webkit-scrollbar {
+    width: 8px;
+}
+
+.log-content::-webkit-scrollbar-track,
+.sidebar-left::-webkit-scrollbar-track,
+.sidebar-right::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+.log-content::-webkit-scrollbar-thumb,
+.sidebar-left::-webkit-scrollbar-thumb,
+.sidebar-right::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+}
+
+.log-content::-webkit-scrollbar-thumb:hover,
+.sidebar-left::-webkit-scrollbar-thumb:hover,
+.sidebar-right::-webkit-scrollbar-thumb:hover {
+    background: #4a5f7f;
+}
+
+/* ============================================
+   Modal Styles
+   ============================================ */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.nf-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.nf-select-btn {
+    padding: 20px;
+    background: var(--bg-tertiary);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+}
+
+.nf-select-btn:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.nf-select-btn .nf-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.nf-select-btn .nf-label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 1200px) {
+    .sidebar-left {
+        width: 200px;
+    }
+
+    .sidebar-right {
+        width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .sidebar-left,
+    .sidebar-right {
+        width: 100%;
+        height: 200px;
+    }
+
+    .log-panel {
+        height: 150px;
+    }
+}
+
+/* =======
+=====================================
+   HTTP Protocol Dropdown Special Styling
+   ============================================ */
+#config-http-protocol {
+    background: var(--bg-tertiary);
+    border: 2px solid #3498db;
+    color: var(--text-primary);
+    font-weight: 600;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#config-http-protocol:hover {
+    border-color: #2980b9;
+    background: #2c3e50;
+}
+
+#config-http-protocol:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Highlight protocol field */
+.form-group:has(#config-http-protocol) {
+    background: rgba(52, 152, 219, 0.05);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+}
+
+.form-group:has(#config-http-protocol) label {
+    color: #3498db;
+    font-weight: 600;
+}
+
+/* ====
+========================================
+   Help Modal Styling
+   ============================================ */
+.help-modal-content {
+    max-width: 900px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.help-content {
+    margin: 20px 0;
+}
+
+.help-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-blue);
+}
+
+.help-section h3 {
+    margin-bottom: 15px;
+    color: var(--accent-blue);
+    font-size: 16px;
+}
+
+.architecture-diagram {
+    text-align: center;
+    margin: 15px 0;
+    padding: 15px;
+    background: #1a252f;
+    border-radius: 8px;
+}
+
+.help-steps {
+    list-style: none;
+    counter-reset: step-counter;
+    padding-left: 0;
+}
+
+.help-steps li {
+    counter-increment: step-counter;
+    margin-bottom: 12px;
+    padding-left: 40px;
+    position: relative;
+    line-height: 1.5;
+}
+
+.help-steps li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--accent-blue);
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.help-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.help-list li {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: var(--bg-primary);
+    border-radius: 5px;
+    border-left: 3px solid var(--accent-green);
+}
+
+.connection-type {
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-right: 8px;
+}
+
+.connection-type.nf-bus {
+    background: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+}
+
+.connection-type.bus-nf {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+}
+
+.connection-type.bus-bus {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+}
+
+.connection-type.nf-nf {
+    background: rgba(155, 89, 182, 0.2);
+    color: #9b59b6;
+}
+
+/* Help button styling */
+#btn-help {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+#btn-help:hover {
+    background: var(--accent-blue);
+    color: white;
+}
+
+/* ==
+==========================================
+   New Configuration Panel Styles
+   ============================================ */
+
+.config-hint {
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    color: var(--accent-blue);
+    text-align: center;
+}
+
+.btn-success {
+    background: var(--accent-green);
+    color: white;
+    font-weight: 600;
+}
+
+.btn-success:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.form-group input[required] {
+    border-left: 3px solid var(--accent-blue);
+}
+
+.form-group input[required]:invalid {
+    border-left-color: var(--accent-red);
+}
+
+.form-group input[required]:valid {
+    border-left-color: var(--accent-green);
+}
+
+/* Enhanced form styling for new NF configuration */
+#config-form h4 {
+    color: var(--text-primary);
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px solid var(--accent-blue);
+    padding-bottom: 8px;
+}
+
+/* Button animations */
+.btn-success {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-success::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-success:hover::before {
+    left: 100%;
+}
+
+/* ============================================
+   IP Validation Error Styling
+   ============================================ */
+#ip-error {
+    color: var(--accent-red) !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    margin-top: 4px !important;
+    padding: 4px 8px;
+    background: rgba(231, 76, 60, 0.1);
+    border-radius: 4px;
+    border-left: 3px solid var(--accent-red);
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-2px);
+    }
+
+    75% {
+        transform: translateX(2px);
+    }
+}
+
+/* IP input with error state */
+#config-ip.error {
+    border-color: var(--accent-red) !important;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+}
+
+/* Help text styling */
+#ip-help-text {
+    color: var(--text-secondary) !important;
+    font-size: 11px !important;
+    margin-top: 4px !important;
+}
+
+/* =======
+=====================================
+   Create Service Button Styling
+   ============================================ */
+.btn-create-service {
+    width: 100%;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, var(--accent-blue), #2980b9);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-create-service:hover {
+    background: linear-gradient(135deg, #2980b9, var(--accent-blue));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.btn-create-service:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+}
+
+.btn-create-service::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-create-service:hover::before {
+    left: 100%;
+}
+
+.service-icon {
+    font-size: 16px;
+    animation: pulse 2s infinite;
+}
+
+.service-text {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Service Palette Item Styling */
+.service-palette-item {
+    margin-bottom: 15px;
+}
+
+/* Ens
+ure button inherits pointer cursor from parent */
+.service-palette-item .btn-create-service {
+    pointer-events: none;
+    /* Let parent handle clicks */
+}
+
+.service-palette-item {
+    padding: 0;
+    /* Remove padding since button has its own */
+    background: transparent;
+    /* Let button handle background */
+    border: none;
+    /* Remove border since button has its own */
+}
+
+.service-palette-item:hover {
+    transform: none;
+    /* Let button handle hover effects */
+    border-color: transparent;
+}/* ========
+====================================
+   Button Click Animation
+   ============================================ */
+.btn-create-service.btn-clicked {
+    transform: scale(0.95) translateY(1px);
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.4);
+    background: linear-gradient(135deg, #2471a3, #1f618d);
+}
+
+/* Ripple Effect */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Enhanced click feedback */
+.btn-create-service {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Success feedback animation */
+@keyframes success-pulse {
+    0% { 
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 6px 25px rgba(46, 204, 113, 0.5);
+        transform: scale(1.02);
+    }
+    100% { 
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        transform: scale(1);
+    }
+}
+
+.btn-create-service.success-feedback {
+    animation: success-pulse 0.5s ease-out;
+}
+
+/* Loading state animation */
+@keyframes loading-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.btn-create-service.loading .service-icon {
+    animation: loading-spin 1s linear infinite;
+}
+
+.btn-create-service.loading {
+    pointer-events: none;
+    opacity: 0.8;
+}/* 
+============================================
+   Form Button Click Animations
+   ============================================ */
+.btn.btn-clicked {
+    transform: scale(0.95);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.1s ease;
+}
+
+.btn-success.btn-clicked {
+    background: #27ae60;
+    transform: scale(0.95) translateY(1px);
+}
+
+.btn-success.loading {
+    background: #2ecc71;
+    position: relative;
+    color: transparent;
+}
+
+.btn-success.loading::after {
+    content: '⏳';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    animation: loading-bounce 0.8s infinite;
+}
+
+@keyframes loading-bounce {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* Button press effect for all buttons */
+.btn:active {
+    transform: scale(0.98) translateY(1px);
+    transition: all 0.1s ease;
+}
+
+/* Ripple effect for all buttons */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Enhanced success button animation */
+.btn-success:hover {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+}
+
+/* Cancel button animation */
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+    transform: translateY(-1px);
+}
+
+.btn-secondary.btn-clicked {
+    background: #6c7b7d;
+    transform: scale(0.95);
+}/*
+ Danger button click animation */
+.btn-danger.btn-clicked {
+    background: #c0392b;
+    transform: scale(0.95) translateY(1px);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Add shake animation for destructive actions */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+.btn-danger:focus {
+    animation: shake 0.3s ease-in-out;
+}
+/* =====
+=======================================
+   Terminal Modal Styles
+   ============================================ */
+.terminal-modal-content {
+    width: 80%;
+    max-width: 800px;
+    height: 70%;
+    max-height: 600px;
+    background: #1e1e1e;
+    border: 2px solid #333;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.terminal-header {
+    background: #2d2d2d;
+    padding: 10px 15px;
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.terminal-header h3 {
+    color: #fff;
+    font-size: 14px;
+    margin: 0;
+}
+
+.btn-close {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-close:hover {
+    background: #c0392b;
+}
+
+.terminal-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.terminal-output {
+    flex: 1;
+    background: #000;
+    color: #00ff00;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 12px;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.terminal-prompt {
+    color: #00ff00;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 12px;
+    font-weight: bold;
+    min-width: 30px;
+}
+
+.terminal-input {
+    flex: 1;
+    background: #000;
+    color: #00ff00;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 8px;
+    font-family: 'Courier New', 'Consolas', monospace;
+    font-size: 12px;
+}
+
+.terminal-input:focus {
+    outline: none;
+    border-color: #00ff00;
+}
+
+.terminal-quick-commands {
+    border-top: 1px solid #333;
+    padding-top: 10px;
+}
+
+.terminal-quick-commands h4 {
+    color: #bbb;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.terminal-quick-btn {
+    margin-right: 8px;
+    margin-bottom: 5px;
+    font-size: 11px;
+    padding: 4px 8px;
+}
+
+/* Terminal scrollbar styling */
+.terminal-output::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-output::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.terminal-output::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Modal overlay */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+}
