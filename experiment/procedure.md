@@ -1,5 +1,3 @@
-# Procedure
-
 ## Step 1: Create and Start Service 1
 
 ### 1. Start Service Creation
