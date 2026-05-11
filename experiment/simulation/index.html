@@ -15,7 +15,7 @@
         <!-- Top Toolbar -->
         <div class="toolbar">
             <div class="toolbar-left">
-                <h1>🌐 Service-Based Architecture Dashboard</h1>
+                <h1>🌐 Service-Based Architecture </h1>
             </div>
             <div class="toolbar-right">
                 <!-- Main action buttons -->
@@ -113,32 +113,20 @@
             <h2>📚 Service Management Guide</h2>
             <div class="help-content">
                 <div class="help-section">
-                    <h3>🏗️ Service Architecture</h3>
-                    <p>Create and manage custom services with configurable endpoints and connections.</p>
-                </div>
-
-                <div class="help-section">
-                    <h3>🚀 Quick Start Guide</h3>
                     <ol class="help-steps">
-                        <li><strong>Create Services:</strong> Click on "Service" in the left panel to add new services with custom names, IPs, and ports</li>
-                        <li><strong>Auto-Connection:</strong> New services automatically connect to the main bus line and existing services</li>
-                        <li><strong>Move Bus Line:</strong> Drag the bus line to reposition it on the canvas</li>
-                        <li><strong>Configure Bus:</strong> Click on the bus line to rename it, change its color, or adjust its length</li>
-                        <li><strong>Bus Communication:</strong> Services communicate through the bus line for efficient routing</li>
-                        <li><strong>Manual Connections:</strong> Use "Select Source" → "Select Destination" for direct connections between services and buses</li>
-                        <li><strong>Monitor Logs:</strong> View service initialization, bus connections, and request/response logs</li>
+                        <li>Click Create New Service, enter details for Service1, and start it.</li>
+                        <li>Verify Service1 is running by checking the logs for active status.</li>
+                        <li>Click Create New Service again, configure Service2 with a different IP and port, and start it.</li>
+                        <li>Check logs to confirm communication between Service1 and Service2.</li>
+                        <li>Open Service2 Terminal and run <code>ping &lt;Service1_IP&gt;</code>.</li>
+                        <li>Verify connectivity by ensuring packets are sent and received with 0% loss.</li>
                     </ol>
                 </div>
-
-                <div class="help-section">
-                    <h3>🔗 Connection Types</h3>
-                    <ul class="help-list">
-                        <li><span class="connection-type service-service">Service → Bus:</span> Automatic connection to main bus line</li>
-                        <li><span class="connection-type service-service">Service → Service:</span> Direct service-to-service connections</li>
-                        <li><span class="connection-type service-service">Bus → Bus:</span> Connect multiple bus lines together</li>
-                        <li><span class="connection-type service-service">Bus-Routed:</span> Communication through bus lines</li>
-                    </ul>
-                </div>
+            </div>
+            <div class="help-footer">
+                <a href="../procedure.html" target="_blank" rel="noopener noreferrer" class="btn-view-procedures">
+                    For More Details... 📄 View Full Procedures
+                </a>
             </div>
             <button id="help-close" class="btn btn-primary btn-block">Close</button>
         </div>
@@ -146,25 +134,22 @@
 
     <!-- Terminal Modal -->
     <div id="terminal-modal" class="modal" style="display:none;">
-        <div class="modal-content terminal-modal-content">
-            <div class="terminal-header">
-                <h3 id="terminal-title">💻 Service Terminal</h3>
-                <button id="terminal-close" class="btn-close">×</button>
+        <div class="terminal-window">
+            <!-- Title bar with close button -->
+            <div class="terminal-titlebar">
+                <div class="terminal-titlebar-text" id="terminal-title">💻 Service Terminal</div>
+                <button class="terminal-close-btn" id="terminal-close" title="Close">✕</button>
             </div>
-            <div class="terminal-body">
+            <!-- Single scrollable terminal body with inline input -->
+            <div class="terminal-body" id="terminal-body">
                 <div id="terminal-output" class="terminal-output"></div>
-                <div class="terminal-input-line">
-                    <span class="terminal-prompt" id="terminal-prompt">C:\></span>
-                    <input type="text" id="terminal-input" class="terminal-input" placeholder="Type command..." autocomplete="off">
-                    <button id="terminal-send" class="btn btn-primary btn-small">Send</button>
-                </div>
-                <div class="terminal-quick-commands">
-                    <h4>Quick Commands:</h4>
-                    <button class="btn btn-secondary btn-small terminal-quick-btn" data-command="help">help</button>
-                    <button class="btn btn-secondary btn-small terminal-quick-btn" data-command="ipconfig">ipconfig</button>
-                    <button class="btn btn-info btn-small terminal-quick-btn" data-command="ping-subnet">ping subnet</button>
+                <div class="terminal-input-row">
+                    <span class="terminal-prompt" id="terminal-prompt">C:\&gt;</span>
+                    <input type="text" id="terminal-input" class="terminal-inline-input" autocomplete="off" spellcheck="false">
                 </div>
             </div>
+            <!-- Subtle scanline overlay -->
+            <div class="terminal-scanlines"></div>
         </div>
     </div>
 

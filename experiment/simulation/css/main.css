@@ -749,6 +749,7 @@ button:disabled {
    ============================================ */
 .help-modal-content {
     max-width: 900px;
+    width: 700px;
     max-height: 80vh;
     overflow-y: auto;
 }
@@ -821,6 +822,41 @@ button:disabled {
     background: var(--bg-primary);
     border-radius: 5px;
     border-left: 3px solid var(--accent-green);
+}
+
+.help-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+    margin-bottom: 4px;
+}
+
+.btn-view-procedures {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(33, 150, 243, 0.4);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+    letter-spacing: 0.3px;
+}
+
+.btn-view-procedures:hover {
+    background: linear-gradient(135deg, #42a5f5, #1e88e5);
+    box-shadow: 0 6px 18px rgba(33, 150, 243, 0.55);
+    transform: translateY(-1px);
+}
+
+.btn-view-procedures:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.35);
 }
 
 .connection-type {
@@ -1239,142 +1275,184 @@ ure button inherits pointer cursor from parent */
 }
 /* =====
 =======================================
-   Terminal Modal Styles
+   Terminal Modal Styles — Realistic Terminal
    ============================================ */
-.terminal-modal-content {
-    width: 80%;
-    max-width: 800px;
-    height: 70%;
-    max-height: 600px;
-    background: #1e1e1e;
-    border: 2px solid #333;
+
+/* Terminal window container */
+.terminal-window {
+    width: 85%;
+    max-width: 860px;
+    height: 75vh;
+    max-height: 650px;
+    background: #000000;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 20px 68px rgba(0,0,0,0.85);
+    position: relative;
 }
 
-.terminal-header {
-    background: #2d2d2d;
-    padding: 10px 15px;
-    border-bottom: 1px solid #444;
+/* ---- Title bar ---- */
+.terminal-titlebar {
+    background: #1a1a1a;
+    padding: 0 10px 0 16px;
+    height: 36px;
+    min-height: 36px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #2a2a2a;
+    user-select: none;
 }
 
-.terminal-header h3 {
-    color: #fff;
-    font-size: 14px;
-    margin: 0;
+.terminal-titlebar-text {
+    color: #aaa;
+    font-size: 13px;
+    font-family: 'Segoe UI', 'SF Pro Text', -apple-system, sans-serif;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.btn-close {
-    background: #e74c3c;
-    color: white;
+/* Red X close button on the right */
+.terminal-close-btn {
+    background: transparent;
     border: none;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    font-size: 16px;
+    color: #888;
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
 }
 
-.btn-close:hover {
-    background: #c0392b;
+.terminal-close-btn:hover {
+    background: #e74c3c;
+    color: #fff;
 }
 
+/* ---- Terminal body (scrollable area) ---- */
 .terminal-body {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-}
-
-.terminal-output {
-    flex: 1;
-    background: #000;
-    color: #00ff00;
-    font-family: 'Courier New', 'Consolas', monospace;
-    font-size: 12px;
-    padding: 10px;
-    border: 1px solid #333;
-    border-radius: 4px;
+    background: #000000;
+    padding: 12px 16px;
     overflow-y: auto;
-    white-space: pre-wrap;
-    margin-bottom: 15px;
-    line-height: 1.4;
+    font-family: 'Cascadia Code', 'Cascadia Mono', 'Fira Code', 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #cccccc;
+    cursor: text;
+    position: relative;
+    z-index: 1;
 }
 
-.terminal-input-line {
+/* ---- Output text ---- */
+.terminal-output {
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #cccccc;
+}
+
+/* ---- Inline prompt + input row ---- */
+.terminal-input-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 15px;
+    margin-top: 2px;
 }
 
 .terminal-prompt {
-    color: #00ff00;
-    font-family: 'Courier New', 'Consolas', monospace;
-    font-size: 12px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: inherit;
     font-weight: bold;
-    min-width: 30px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-shadow: 0 0 6px rgba(78, 201, 176, 0.3);
 }
 
-.terminal-input {
+/* Input that blends into terminal text */
+.terminal-inline-input {
     flex: 1;
-    background: #000;
-    color: #00ff00;
-    border: 1px solid #333;
-    border-radius: 4px;
-    padding: 8px;
-    font-family: 'Courier New', 'Consolas', monospace;
-    font-size: 12px;
-}
-
-.terminal-input:focus {
+    background: transparent;
+    border: none;
     outline: none;
-    border-color: #00ff00;
+    color: #e8e8e8;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0;
+    margin: 0;
+    caret-color: #4ec9b0;
 }
 
-.terminal-quick-commands {
-    border-top: 1px solid #333;
-    padding-top: 10px;
+.terminal-inline-input::placeholder {
+    color: transparent;
 }
 
-.terminal-quick-commands h4 {
-    color: #bbb;
-    font-size: 12px;
-    margin-bottom: 8px;
+/* Blinking block cursor simulation via caret */
+@keyframes blink-caret {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
-.terminal-quick-btn {
-    margin-right: 8px;
-    margin-bottom: 5px;
-    font-size: 11px;
-    padding: 4px 8px;
+.terminal-inline-input:focus {
+    outline: none;
 }
 
-/* Terminal scrollbar styling */
-.terminal-output::-webkit-scrollbar {
+/* ---- CRT scanline overlay ---- */
+.terminal-scanlines {
+    position: absolute;
+    top: 38px; /* below title bar */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 2;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.04) 0px,
+        rgba(0,0,0,0.04) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    opacity: 0.5;
+}
+
+/* ---- Scrollbar ---- */
+.terminal-body::-webkit-scrollbar {
     width: 8px;
 }
 
-.terminal-output::-webkit-scrollbar-track {
-    background: #1e1e1e;
+.terminal-body::-webkit-scrollbar-track {
+    background: #1a1a1a;
 }
 
-.terminal-output::-webkit-scrollbar-thumb {
-    background: #444;
+.terminal-body::-webkit-scrollbar-thumb {
+    background: #3a3a3a;
     border-radius: 4px;
 }
 
-.terminal-output::-webkit-scrollbar-thumb:hover {
-    background: #555;
+.terminal-body::-webkit-scrollbar-thumb:hover {
+    background: #4a4a4a;
 }
+
+/* ---- Terminal text color classes (used by JS) ---- */
+.term-green   { color: #4ec9b0; }
+.term-yellow  { color: #dcdcaa; }
+.term-red     { color: #f44747; }
+.term-blue    { color: #569cd6; }
+.term-gray    { color: #6a9955; }
+.term-white   { color: #e8e8e8; }
+.term-bold    { font-weight: bold; }
 
 /* Modal overlay */
 .modal {

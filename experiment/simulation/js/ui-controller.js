@@ -82,17 +82,17 @@ class UIController {
             item.addEventListener('click', () => {
                 console.log('🖱️ Palette item clicked: Create Service');
                 const button = item.querySelector('.btn-create-service');
-                
+
                 // Add click animation and loading state
                 this.animateButtonClick(item);
                 button.classList.add('loading');
-                
+
                 // Show configuration panel after brief delay for visual feedback
                 setTimeout(() => {
                     button.classList.remove('loading');
                     button.classList.add('success-feedback');
                     this.showServiceConfigurationForNew();
-                    
+
                     // Remove success feedback after animation
                     setTimeout(() => {
                         button.classList.remove('success-feedback');
@@ -136,20 +136,20 @@ class UIController {
         // Create new ripple element
         const ripple = document.createElement('span');
         ripple.className = 'ripple';
-        
+
         // Position ripple at center of button
         const rect = button.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
         const x = rect.width / 2 - size / 2;
         const y = rect.height / 2 - size / 2;
-        
+
         ripple.style.width = ripple.style.height = size + 'px';
         ripple.style.left = x + 'px';
         ripple.style.top = y + 'px';
-        
+
         // Add ripple to button
         button.appendChild(ripple);
-        
+
         // Remove ripple after animation
         setTimeout(() => {
             ripple.remove();
@@ -615,6 +615,8 @@ class UIController {
         console.log('✅ Topology cleared');
         console.log('🔓 Protocol lock reset - next service can choose any protocol');
         alert('Topology cleared successfully!');
+        // Full refresh ensures complete re-initialization of all managers and UI state
+        window.location.reload();
     }
 
     /**
@@ -741,7 +743,6 @@ class UIController {
 
         configForm.innerHTML = `
             <h4>Create New Service</h4>
-            <p class="config-hint">Configure your service before starting it.</p>
             
             <div class="form-group">
                 <label>Service Name *</label>
@@ -813,7 +814,7 @@ class UIController {
             // Add click animation
             startBtn.classList.add('btn-clicked');
             startBtn.classList.add('loading');
-            
+
             // Execute service creation after brief delay for visual feedback
             setTimeout(() => {
                 this.startNewService();
@@ -827,7 +828,7 @@ class UIController {
         cancelBtn.addEventListener('click', () => {
             // Add click animation
             cancelBtn.classList.add('btn-clicked');
-            
+
             setTimeout(() => {
                 this.hideServiceConfigPanel();
                 cancelBtn.classList.remove('btn-clicked');
@@ -1031,7 +1032,6 @@ class UIController {
 
         configForm.innerHTML = `
             <h4>Service Information</h4>
-            <p class="config-hint">View service details and status.</p>
             
             <div class="form-group">
                 <label>Service Name</label>
@@ -1063,14 +1063,11 @@ class UIController {
                 <input type="text" value="${nf.status || 'Unknown'}" readonly>
             </div>
             
-            <div style="margin: 20px 0; padding: 15px; background: var(--bg-tertiary); border-radius: 8px; border-left: 4px solid var(--accent-blue);">
-                <h4 style="margin: 0 0 15px 0; color: var(--accent-blue); font-size: 14px;">🔧 Troubleshoot</h4>
-                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px;">Open terminal to test connectivity</p>
-                
-                <button class="btn btn-info btn-block" id="btn-open-terminal" style="margin-bottom: 10px;">
-                    💻 Open Service Terminal
-                </button>
-            </div>
+            
+            <button class="btn btn-info btn-block" id="btn-open-terminal" style="margin-bottom: 10px;">
+                💻 Open Service Terminal
+            </button>
+            
             
             <button class="btn btn-danger btn-block" id="btn-delete-service">
                 🗑️ Delete Service
@@ -1089,7 +1086,7 @@ class UIController {
         deleteBtn.addEventListener('click', () => {
             // Add click animation
             deleteBtn.classList.add('btn-clicked');
-            
+
             setTimeout(() => {
                 this.deleteService(nf);
                 deleteBtn.classList.remove('btn-clicked');
@@ -1110,7 +1107,7 @@ class UIController {
     deleteService(nf) {
         // Confirm deletion
         const confirmMessage = `Are you sure you want to delete "${nf.name}"?\n\nThis will:\n- Remove the service from the canvas\n- Delete all its connections\n- Remove all related logs\n\nThis action cannot be undone.`;
-        
+
         if (!confirm(confirmMessage)) {
             return;
         }
@@ -1119,7 +1116,7 @@ class UIController {
 
         // Count connections before deletion for logging
         const allConnections = window.dataStore?.getAllConnections() || [];
-        const connectionsToDelete = allConnections.filter(conn => 
+        const connectionsToDelete = allConnections.filter(conn =>
             conn.sourceId === nf.id || conn.targetId === nf.id
         );
 
@@ -1140,7 +1137,7 @@ class UIController {
 
         // Log the deletion
         if (window.logEngine) {
-            window.logEngine.addLog('system', 'WARNING', 
+            window.logEngine.addLog('system', 'WARNING',
                 `Service "${nf.name}" has been deleted`, {
                 serviceId: nf.id,
                 deletedConnections: connectionsToDelete.length,
@@ -1161,7 +1158,7 @@ class UIController {
         this.updateLogServiceFilter();
 
         console.log('✅ Service deleted successfully:', nf.name);
-        
+
         // Show success message
         alert(`Service "${nf.name}" has been deleted successfully.`);
     }
@@ -1182,39 +1179,32 @@ class UIController {
      */
     openServiceTerminal(service) {
         this.currentTerminalService = service;
-        
+        this.terminalCommandHistory = this.terminalCommandHistory || [];
+        this.terminalHistoryIndex = -1;
+
         // Show terminal modal
         const modal = document.getElementById('terminal-modal');
         const title = document.getElementById('terminal-title');
-        const prompt = document.getElementById('terminal-prompt');
         const output = document.getElementById('terminal-output');
-        
-        if (modal && title && prompt && output) {
-            title.textContent = `💻 ${service.name} Terminal (${service.config.ipAddress})`;
+        const prompt = document.getElementById('terminal-prompt');
+        const input = document.getElementById('terminal-input');
+        const termBody = document.getElementById('terminal-body');
+
+        if (modal && title && output && prompt && input) {
+            title.textContent = `💻 ${service.name} — ${service.config.ipAddress}`;
             prompt.textContent = `${service.name}@${service.config.ipAddress}:~$ `;
-            
-            // Clear previous output and show welcome message
-            output.textContent = `Microsoft Windows [Version 10.0.19041.1234]
-(c) Microsoft Corporation. All rights reserved.
 
-${service.name} Terminal Session
-Service IP: ${service.config.ipAddress}
-Service Port: ${service.config.port}
-Protocol: ${service.config.protocol}
-
+            // Build welcome message
+            output.textContent = `5G WIRELESS LAB
 Type 'help' for available commands.
 
 `;
-            
+
             modal.style.display = 'flex';
-            
-            // Focus on input
-            const input = document.getElementById('terminal-input');
-            if (input) {
-                input.focus();
-            }
+            input.value = '';
+            input.focus();
         }
-        
+
         // Setup terminal event listeners
         this.setupTerminalEventListeners();
     }
@@ -1226,16 +1216,15 @@ Type 'help' for available commands.
         const modal = document.getElementById('terminal-modal');
         const closeBtn = document.getElementById('terminal-close');
         const input = document.getElementById('terminal-input');
-        const sendBtn = document.getElementById('terminal-send');
-        const quickBtns = document.querySelectorAll('.terminal-quick-btn');
-        
-        // Close button
+        const termBody = document.getElementById('terminal-body');
+
+        // Close button (red dot)
         if (closeBtn) {
             closeBtn.onclick = () => {
                 modal.style.display = 'none';
             };
         }
-        
+
         // Close on background click
         if (modal) {
             modal.onclick = (e) => {
@@ -1244,61 +1233,129 @@ Type 'help' for available commands.
                 }
             };
         }
-        
-        // Enter key to send command
+
+        // Click anywhere in terminal body → focus input
+        if (termBody) {
+            termBody.onclick = () => {
+                if (input) input.focus();
+            };
+        }
+
+        // Keyboard handling
         if (input) {
-            input.onkeypress = (e) => {
+            input.onkeydown = (e) => {
                 if (e.key === 'Enter') {
+                    e.preventDefault();
                     this.executeTerminalCommand();
+                } else if (e.key === 'Tab') {
+                    e.preventDefault();
+                    this.autocompleteTerminalInput(input);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    // Navigate history backwards
+                    if (this.terminalCommandHistory && this.terminalCommandHistory.length > 0) {
+                        if (this.terminalHistoryIndex < this.terminalCommandHistory.length - 1) {
+                            this.terminalHistoryIndex++;
+                        }
+                        input.value = this.terminalCommandHistory[this.terminalCommandHistory.length - 1 - this.terminalHistoryIndex];
+                    }
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (this.terminalHistoryIndex > 0) {
+                        this.terminalHistoryIndex--;
+                        input.value = this.terminalCommandHistory[this.terminalCommandHistory.length - 1 - this.terminalHistoryIndex];
+                    } else {
+                        this.terminalHistoryIndex = -1;
+                        input.value = '';
+                    }
                 }
             };
         }
-        
-        // Send button
-        if (sendBtn) {
-            sendBtn.onclick = () => {
-                this.executeTerminalCommand();
-            };
-        }
-        
-        // Quick command buttons
-        quickBtns.forEach(btn => {
-            btn.onclick = () => {
-                const command = btn.dataset.command;
-                if (command === 'ping-subnet') {
-                    input.value = 'ping subnet';
-                } else {
-                    input.value = command;
-                }
-                this.executeTerminalCommand();
-            };
-        });
     }
 
     /**
-     * Execute terminal command
+     * Autocomplete terminal input on Tab press — real terminal behaviour:
+     * single match → complete immediately
+     * multiple matches → print all options, keep current input
+     * @param {HTMLInputElement} input - Terminal input element
+     */
+    autocompleteTerminalInput(input) {
+        const currentValue = input.value;
+        const output = document.getElementById('terminal-output');
+        const prompt = document.getElementById('terminal-prompt');
+        const termBody = document.getElementById('terminal-body');
+
+        // Build full command list including dynamic ping variants
+        const baseCommands = ['help', 'ifconfig', 'ping', 'ping subnet', 'clear', 'exit'];
+        const allServices = window.dataStore?.getAllNFs() || [];
+        const serviceIPs = allServices
+            .filter(s => s.id !== this.currentTerminalService?.id)
+            .map(s => s.config?.ipAddress)
+            .filter(Boolean);
+        // Add "ping <ip>" for each known service
+        const pingIPCommands = serviceIPs.map(ip => `ping ${ip}`);
+        const allCommands = [...baseCommands, ...pingIPCommands];
+
+        // Find matches
+        const matches = allCommands.filter(cmd =>
+            cmd.startsWith(currentValue.toLowerCase())
+        );
+
+        if (matches.length === 0) {
+            // Nothing matches — do nothing
+            return;
+        }
+
+        if (matches.length === 1) {
+            // Single match — complete it
+            input.value = matches[0];
+            return;
+        }
+
+        // Multiple matches — print them below current line like a real terminal
+        if (output && prompt) {
+            output.textContent += `${prompt.textContent}${currentValue}\n`;
+            output.textContent += matches.join('    ') + '\n';
+            if (termBody) termBody.scrollTop = termBody.scrollHeight;
+        }
+        // Keep the input as-is so the user can keep typing
+    }
+
+    /**
+     * Execute terminal command — bake typed text into output, process, then re-create prompt
      */
     executeTerminalCommand() {
         const input = document.getElementById('terminal-input');
         const output = document.getElementById('terminal-output');
         const prompt = document.getElementById('terminal-prompt');
-        
+        const termBody = document.getElementById('terminal-body');
+
         if (!input || !output || !this.currentTerminalService) return;
-        
+
         const command = input.value.trim();
         if (!command) return;
-        
-        // Add command to output
+
+        // Save to history
+        this.terminalCommandHistory = this.terminalCommandHistory || [];
+        this.terminalCommandHistory.push(command);
+        this.terminalHistoryIndex = -1;
+
+        // Bake the prompt + command into the output area
         output.textContent += `${prompt.textContent}${command}\n`;
-        
-        // Process command
+
+        // Process command (appends response to output.textContent)
         this.processTerminalCommand(command);
-        
-        // Clear input
+
+        // Clear input and refocus
         input.value = '';
-        
+
         // Scroll to bottom
-        output.scrollTop = output.scrollHeight;
+        if (termBody) {
+            termBody.scrollTop = termBody.scrollHeight;
+        }
+
+        // Re-focus
+        input.focus();
     }
 
     /**
@@ -1308,20 +1365,20 @@ Type 'help' for available commands.
     processTerminalCommand(command) {
         const output = document.getElementById('terminal-output');
         const service = this.currentTerminalService;
-        
+
         const cmd = command.toLowerCase().trim();
-        
+
         if (cmd === 'help') {
             output.textContent += `Available commands:
   help          - Show this help message
-  ipconfig      - Show network configuration
+  ifconfig      - Show network configuration
   ping <ip>     - Ping a specific IP address
   ping subnet   - Ping all services in the same subnet
-  cls           - Clear screen
+  clear           - Clear screen
   exit          - Close terminal
 
 `;
-        } else if (cmd === 'ipconfig') {
+        } else if (cmd === 'ifconfig') {
             output.textContent += `Windows IP Configuration
 
 Ethernet adapter Local Area Connection:
@@ -1331,7 +1388,7 @@ Ethernet adapter Local Area Connection:
    Default Gateway . . . . . . . . . : ${this.getSubnetFromIP(service.config.ipAddress)}.1
 
 `;
-        } else if (cmd === 'cls') {
+        } else if (cmd === 'clear') {
             output.textContent = '';
         } else if (cmd === 'exit') {
             document.getElementById('terminal-modal').style.display = 'none';
@@ -1357,7 +1414,7 @@ operable program or batch file.
      */
     executePingCommand(service, targetIP) {
         const output = document.getElementById('terminal-output');
-        
+
         // Validate IP format
         if (!this.validateIPAddress(targetIP)) {
             output.textContent += `Ping request could not find host ${targetIP}. Please check the name and try again.
@@ -1365,23 +1422,24 @@ operable program or batch file.
 `;
             return;
         }
-        
+
         // Check if target IP exists in services
         const allServices = window.dataStore?.getAllNFs() || [];
         const targetService = allServices.find(s => s.config?.ipAddress === targetIP);
-        
+
         if (!targetService) {
             // Show failed ping with progressive timeouts
             output.textContent += `Pinging ${targetIP} with 32 bytes of data:
 `;
-            
+
             // Show timeout messages progressively
             let timeoutCount = 0;
             const showTimeout = () => {
                 if (timeoutCount < 4) {
                     output.textContent += `Request timed out.
 `;
-                    output.scrollTop = output.scrollHeight;
+                    const tb1 = document.getElementById('terminal-body');
+                    if (tb1) tb1.scrollTop = tb1.scrollHeight;
                     timeoutCount++;
                     setTimeout(showTimeout, 1000); // 1 second delay for timeouts
                 } else {
@@ -1390,13 +1448,14 @@ Ping statistics for ${targetIP}:
     Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
 
 `;
-                    output.scrollTop = output.scrollHeight;
+                    const tb2 = document.getElementById('terminal-body');
+                    if (tb2) tb2.scrollTop = tb2.scrollHeight;
                 }
             };
             showTimeout();
             return;
         }
-        
+
         // Generate realistic ping times
         const times = [
             Math.floor(Math.random() * 50) + 10,
@@ -1404,23 +1463,25 @@ Ping statistics for ${targetIP}:
             Math.floor(Math.random() * 20) + 2,
             Math.floor(Math.random() * 40) + 8
         ];
-        
+
         const minTime = Math.min(...times);
         const maxTime = Math.max(...times);
         const avgTime = Math.floor(times.reduce((a, b) => a + b, 0) / times.length);
-        
+
         // Show initial ping message
         output.textContent += `Pinging ${targetIP} with 32 bytes of data:
 `;
-        output.scrollTop = output.scrollHeight;
-        
+        const tb3 = document.getElementById('terminal-body');
+        if (tb3) tb3.scrollTop = tb3.scrollHeight;
+
         // Show ping replies progressively with 0.5 second delays
         let replyCount = 0;
         const showPingReply = () => {
             if (replyCount < 4) {
                 output.textContent += `Reply from ${targetIP}: bytes=32 time=${times[replyCount]}ms TTL=255
 `;
-                output.scrollTop = output.scrollHeight;
+                const tb4 = document.getElementById('terminal-body');
+                if (tb4) tb4.scrollTop = tb4.scrollHeight;
                 replyCount++;
                 setTimeout(showPingReply, 1000); // 1 second delay between replies
             } else {
@@ -1433,11 +1494,12 @@ Approximate round trip times in milli-seconds:
     Minimum = ${minTime}ms, Maximum = ${maxTime}ms, Average = ${avgTime}ms
 
 `;
-                    output.scrollTop = output.scrollHeight;
-                    
+                    const tb5 = document.getElementById('terminal-body');
+                    if (tb5) tb5.scrollTop = tb5.scrollHeight;
+
                     // Log the ping after completion
                     if (window.logEngine) {
-                        window.logEngine.addLog(service.id, 'INFO', 
+                        window.logEngine.addLog(service.id, 'INFO',
                             `Ping executed to ${targetIP} (${targetService.name})`, {
                             targetIP: targetIP,
                             targetService: targetService.name,
@@ -1448,7 +1510,7 @@ Approximate round trip times in milli-seconds:
                 }, 1000); // Small delay before showing statistics
             }
         };
-        
+
         // Start showing replies after a brief delay
         setTimeout(showPingReply, 100);
     }
@@ -1460,14 +1522,14 @@ Approximate round trip times in milli-seconds:
     executePingSubnet(service) {
         const output = document.getElementById('terminal-output');
         const sourceIP = service.config?.ipAddress;
-        
+
         if (!sourceIP) {
             output.textContent += `Error: Service has no IP address configured.
 
 `;
             return;
         }
-        
+
         const subnet = this.getSubnetFromIP(sourceIP);
         if (!subnet) {
             output.textContent += `Error: Invalid IP address format.
@@ -1475,7 +1537,7 @@ Approximate round trip times in milli-seconds:
 `;
             return;
         }
-        
+
         // Get all services in same subnet
         const allServices = window.dataStore?.getAllNFs() || [];
         const subnetServices = allServices.filter(s => {
@@ -1484,11 +1546,11 @@ Approximate round trip times in milli-seconds:
             if (!targetIP) return false;
             return this.getSubnetFromIP(targetIP) === subnet;
         });
-        
+
         output.textContent += `Scanning subnet ${subnet}.0/24 for active services...
 
 `;
-        
+
         if (subnetServices.length === 0) {
             output.textContent += `No other services found in subnet ${subnet}.0/24
 
@@ -1497,22 +1559,22 @@ Approximate round trip times in milli-seconds:
             output.textContent += `Found ${subnetServices.length} service(s) in subnet:
 
 `;
-            
+
             subnetServices.forEach(targetService => {
                 const responseTime = Math.floor(Math.random() * 50) + 10;
                 output.textContent += `${targetService.config.ipAddress} (${targetService.name}) - ${responseTime}ms
 `;
             });
-            
+
             output.textContent += `
 Subnet scan complete.
 
 `;
         }
-        
+
         // Log the subnet ping
         if (window.logEngine) {
-            window.logEngine.addLog(service.id, 'INFO', 
+            window.logEngine.addLog(service.id, 'INFO',
                 `Subnet ping executed for ${subnet}.0/24`, {
                 subnet: subnet + '.0/24',
                 servicesFound: subnetServices.length,
@@ -1529,13 +1591,13 @@ Subnet scan complete.
     getSubnetFromIP(ip) {
         const parts = ip.split('.');
         if (parts.length !== 4) return null;
-        
+
         // Validate each part
         for (let part of parts) {
             const num = parseInt(part);
             if (isNaN(num) || num < 0 || num > 255) return null;
         }
-        
+
         // Return first 3 octets as subnet (assuming /24)
         return parts.slice(0, 3).join('.');
     }
