@@ -1,3 +1,4 @@
+
 ## 1. What is a Service?
 A service is a specific capability or function that one Network Function (NF) exposes to other authorized NFs through standardized Service-Based Interfaces (SBI). Services represent discrete operations that can be discovered, accessed, and consumed by other network components without requiring dedicated point-to-point connections.
 
@@ -8,16 +9,17 @@ As shown in the diagram, each Network Function can act as both:
 
 ### Service Operations
 Network Functions communicate through four primary service operations over SBI:
-1. Request: A consumer NF sends a service request to a producer NF
-2. Reply: The producer NF responds with the requested information or action result
-3. Subscribe: A consumer NF subscribes to notifications from a producer NF for specific events
-4. Notify: The producer NF sends event notifications to subscribed consumer NFs
+* Request: A consumer NF sends a service request to a producer NF
+* Reply: The producer NF responds with the requested information or action result
+* Subscribe: A consumer NF subscribes to notifications from a producer NF for specific events
+* Notify: The producer NF sends event notifications to subscribed consumer NFs
 
 ### Example Scenario
 
-![Service-Based Architecture ](images/fig-1.svg) 
 
-Fig: Service-Based Architecture 
+<img src="images/fig-1.svg" alt="[Service-Based Architecture" width="50%">
+
+*Fig1: Service-Based Architecture* 
 
 In the diagram:
 * NF A contains: 
@@ -28,17 +30,15 @@ In the diagram:
   * NF Service B1 (acting as Producer)
 
 When NF B needs information from NF A:
-1. NF B (consumer) sends a Request to NF A (producer) through the SBI
-2. NF A processes the request and sends a Reply back to NF B
-3. If NF B needs continuous updates, it sends a Subscribe request
-4. NF A then sends Notify messages whenever relevant events occur
+* NF B (consumer) sends a Request to NF A (producer) through the SBI
+* NF A processes the request and sends a Reply back to NF B
+* If NF B needs continuous updates, it sends a Subscribe request
+* NF A then sends Notify messages whenever relevant events occur
 
 This bidirectional communication model allows Network Functions to dynamically interact based on service needs, without pre-configured point-to-point connections. Each service operates independently and can be discovered and consumed as needed through the Service-Based Interface.
 
-<details>
-<summary><strong>3. Service-Based Architecture (SBA)</strong></summary>
-
 ## 2. Service-Based Architecture (SBA)
+
 Service-Based Architecture fundamentally restructures how components interact. Instead of fixed point-to-point links, SBA uses a service-oriented model where functions register and discover services dynamically.
 
 ### Core Principles
@@ -56,13 +56,8 @@ Service-Based Architecture fundamentally restructures how components interact. I
 * URI Structure: `http://{address}/n{service-name}/v{version}/{resource}`
 * Direct and Indirect Communication: Components can communicate directly with each other or through a proxy that provides routing, load balancing, and security functions
 
-</details>
-
-
-<details>
-<summary><strong>2. Point-to-Point (P2P) Architecture</strong></summary>
-
 ## 3. Point-to-Point (P2P) Architecture
+
 Point-to-Point architecture represents traditional system design where components communicate through dedicated, standardized interfaces with fixed connections between specific pairs of functions.
 
 ### Interface Structure
@@ -73,18 +68,12 @@ Each connection between components uses specific protocols with predefined inter
 * Protocol Diversity: Different interfaces may use different protocols, requiring protocol-specific implementations and expertise.
 * Tight Coupling: Components are tightly integrated, creating dependencies where changes to one element often require modifications to connected elements.
 
-<img src="images/fig-2.svg" alt="P2P Architecture" width="30%">
+<img src="images/fig-2.svg" alt="P2P Architecture" width="40%">
 
-Fig2: P2P Architecture 
-
-</details>
-
-
-
-<details>
-<summary><strong>4. Difference Between P2P and SBA</strong></summary>
+*Fig2: P2P Architecture* 
 
 ## 4. Difference Between P2P and SBA
+
 | Aspect | Point-to-Point | Service-Based Architecture |
 |--------|---------------|---------------------------|
 | Communication Model | Dedicated interfaces between pairs | Common service bus with REST APIs |
@@ -101,12 +90,9 @@ Fig2: P2P Architecture
 ### Architectural Impact
 P2P creates a web of fixed connections, where each strand is a specialized connection. SBA creates a hub-and-spoke model where all functions connect to a common service infrastructure, dramatically simplifying architecture and enabling flexibility.
 
-</details>
+## 5. HTTP/1.1 and HTTP/2 Protocol
 
-<details>
-<summary><strong>5. HTTP/1 and HTTP/2 Protocol</strong></summary>
-
-## HTTP/1.1 Protocol
+### HTTP/1.1 Protocol
 HTTP/1.1 is the long-standing version of the HTTP protocol that powered most web communication for decades before HTTP/2. While foundational and widely supported, its design has inherent limitations that affect performance, scalability, and efficiency in modern service-based systems.
 
 ### Key Features
@@ -116,9 +102,7 @@ HTTP/1.1 is the long-standing version of the HTTP protocol that powered most web
 * Connection Limits: Browsers typically restrict clients to 6 simultaneous TCP connections per domain, forcing applications to open multiple parallel connections to achieve concurrency. This approach increases CPU load and network congestion.
 * Head-of-Line Blocking: Within each connection, responses must be returned in the exact order that requests were sent. If one request is slow, every subsequent request in that connection waits—creating significant latency and reducing throughput.
 
-
-
-## HTTP/2 Protocol
+### HTTP/2 Protocol
 HTTP/2 is a major revision of the HTTP protocol that provides significant performance improvements over HTTP/1.1. It serves as the foundation for all Service-Based Interface communication.
 
 ### Key Features
@@ -129,18 +113,18 @@ HTTP/2 is a major revision of the HTTP protocol that provides significant perfor
 
 ### Why HTTP/2 is Superior to HTTP/1.1
 
-<img src="images/fig-3.svg" alt="HTTP/1 vs HTTP/2" width="45%">
+<img src="images/fig-3.svg" alt="HTTP/1 vs HTTP/2" width="50%">
 
-Fig3: HTTP/1 vs HTTP/2
+*Fig3: HTTP/1 vs HTTP/2*
 
-#### HTTP/1.1 Limitations
+### HTTP/1.1 Limitations
 * Maximum 6 parallel connections per domain
 * Head-of-line blocking (each request waits for response)
 * To download 100 resources: requires opening/closing multiple connections sequentially
 * High latency: approximately 400ms per connection roundtrip
 * Uncompressed, redundant headers waste bandwidth
 
-#### HTTP/2 Advantages
+### HTTP/2 Advantages
 * Single connection handles unlimited concurrent streams
 * No head-of-line blocking at application layer
 * To download 100 resources: 1 connection + all requests in parallel = ~400ms total (10x faster)
@@ -148,12 +132,8 @@ Fig3: HTTP/1 vs HTTP/2
 * Lower memory and processing overhead
 * Better TLS/SSL performance through session reuse
 
-</details>
-
-<details>
-<summary><strong>6. REST APIs in SBA</strong></summary>
-
 ## 6. REST APIs in SBA
+
 REST (Representational State Transfer) APIs are the standard interface mechanism for Service-Based Architecture communications. REST provides a stateless, resource-oriented model for service interactions using HTTP methods.
 
 ### REST Principles
@@ -171,6 +151,7 @@ REST (Representational State Transfer) APIs are the standard interface mechanism
 All request and response bodies use JSON format for structured data representation.
 
 ### Example REST API Operations
+
 Service Registration:
 ```http
 PUT /registry/v1/instances/{instanceId} HTTP/2
@@ -190,19 +171,24 @@ Content-Type: application/json
 Body: {session parameters in JSON}
 ```
 
-![Rest API Operation Flow](images/fig-4.svg) 
-Fig4: Rest API Operation Flow
 
-Advantages
-Developer Familiarity: REST APIs use web development standards
+<img src="images/fig-4.svg" alt="Rest API Operation Flow" width="40%">
 
-Interoperability: Standardized REST interfaces enable multi-vendor deployments
+*Fig4: Rest API Operation Flow*
 
-Automation-Friendly: RESTful design facilitates automated orchestration and testing
-7. JSON Message Format
+### Advantages
+
+- **Developer Familiarity**: REST APIs use web development standards
+
+- **Interoperability**: Standardized REST interfaces enable multi-vendor deployments
+
+- **Automation-Friendly**: RESTful design facilitates automated orchestration and testing
+
+## 7. JSON Message Format
+
 JSON (JavaScript Object Notation) is the standardized data format for all request and response messages in Service-Based Interfaces. JSON provides human-readable, structured data representation using key-value pairs, arrays, and nested objects.
 
-Example: Service Registration Request
+**Example**: Service Registration Request
 When a component registers with the discovery service:
 
 ```json
@@ -229,8 +215,9 @@ When a component registers with the discovery service:
 }
 ```
 
-Example: Registration Response
+**Example**: Registration Response
 The discovery service responds with HTTP 201 Created:
+
 ```json
 {
   "instanceId": "f2b2a934-1b06-41eb-8b8b-cb1a09f099af",
@@ -246,7 +233,7 @@ The discovery service responds with HTTP 201 Created:
 }
 ```
 
-Example: Service Discovery Request
+**Example**: Service Discovery Request
 Request:
 
 ```http
@@ -255,7 +242,7 @@ Host: discovery.service.net
 Accept: application/json
 ```
 
-Response JSON:
+**Response JSON**:
 
 ```json
 {
@@ -283,18 +270,3 @@ Response JSON:
   ]
 }
 ```
-
-</details>
-          "versions": [{"apiVersion": "v1"}],
-          "endpoints": [
-            {"ipv4Address": "192.168.2.20", "port": 8080}
-          ],
-          "status": "REGISTERED"
-        }
-      ]
-    }
-  ]
-}
- ```
-
- </details>
