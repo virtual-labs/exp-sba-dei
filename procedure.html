@@ -1,0 +1,701 @@
+<!DOCTYPE html><html lang="en"><head>
+      <!--Google Tag Manager-->
+      <script class="gtm">
+        var dataLayer = [{
+        'labName': 'Virtual Lab',
+        'discipline': 'Test',
+        'college': 'DLBG',
+        'phase': 'Testing',
+        'expName': 'Implement Service-Based Architecture (SBA)',
+        'expShortName': 'sba'
+        }];
+    
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5NMQ9NQ');
+      </script>
+      <!--End Google Tag Manager-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    
+    	<meta name="experiment-short-name" content="sba">
+    	<meta name="developer-institute" content="DLBG">
+    	<meta name="learning-unit" content="Implement Service-Based Architecture (SBA)">
+    	<meta name="task-name" content="Procedure">
+    
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#4076e0">
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#4076e0">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#4076e0">
+    <title>Virtual Labs</title>
+    <link rel="shortcut icon" href="./assets/images/favicon.ico">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" integrity="sha512-Oy18vBnbSJkXTndr2n6lDMO5NN31UljR8e/ICzVPrGpSud4Gkckb8yUpqhKuUNoE+o9gAb4O/rAxxw1ojyUVzg==" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&amp;family=Raleway&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/github-markdown.min.css">
+    <link rel="stylesheet" href="./assets/css/vlabs-style.css">
+    <link rel="stylesheet" href="./assets/css/toast.css">
+    <link rel="stylesheet" href="./assets/katex_assets/katex.min.css">
+    
+    <script src="./assets/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      h1 {
+      font-size: 1.8rem;
+      }
+      h2 {
+      font-size: 1.4rem;
+      }
+      h3 {
+      font-size: 1.2rem;
+      }
+
+      h2, h3 {
+      font-weight: 800;
+      }
+    </style>
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"></head>
+  <body class="p-0 container-fluid vlabs-page d-flex flex-column justify-content-between">
+      <!--Google Tag Manager (noscript)-->
+      <noscript class="gtm">
+        <iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-5NMQ9NQ" style="display:none;visibility:hidden" width="0">
+        </iframe>
+      </noscript>
+      <!--End Google Tag Manager (noscript)-->
+  
+      <header class="vlabs-header sticky-top bg-white">
+        <nav class="p-0 navbar navbar-light d-flex align-items-stretch">
+          
+          <button class="navbar-toggler px-4" type="button" onclick="toggle()">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      
+          <div class="d-flex justify-content-center">        
+            <a href="https://vlab.co.in" class="navbar-brand">
+              <img src="./assets/images/vlabs-color-small-moe.jpg" alt="vlabs logo" class="vlabs-logo">
+            </a>
+          </div>
+          
+          <div id="headerNavbar" class="d-none border-top flex-grow-1 d-lg-flex align-items-center justify-content-end">
+            <div class="svc-rating-display">
+                <rating-display spreadsheetid="1x12nhpp0QvnsA6x-O1sV4IA9SAbfVsq_wiexWkutOmU" sheetname="Experiment-Database" columnname="Experiment Short Name" columnvalue="sba" imagesdirectory="/plugins/svc-rating/images/">
+                </rating-display>
+            </div>      <div class="svc-rating-submit">
+                <rating-submit title="Rate" this="" experiment="">
+                </rating-submit>
+            </div>      <bug-report id="bug-report" title="[BUG REPORT] Implement Service-Based Architecture (SBA)" page-type="text" context-info="{&quot;organisation&quot;:&quot;Virtual Labs&quot;,&quot;developer_institute&quot;:&quot;DLBG&quot;,&quot;expname&quot;:&quot;Implement Service-Based Architecture (SBA)&quot;,&quot;labname&quot;:&quot;Virtual Lab&quot;,&quot;phase&quot;:&quot;Testing&quot;}" checkbox-json="{&quot;text&quot;:[&quot;Insufficient Content&quot;],&quot;video&quot;:[&quot;Insufficient Content&quot;],&quot;assesment&quot;:[&quot;Incorrect Options&quot;,&quot;Incorrect Answer&quot;,&quot;Incorrect Question&quot;],&quot;assessment&quot;:[&quot;Incorrect Options&quot;,&quot;Incorrect Answer&quot;,&quot;Incorrect Question&quot;],&quot;simulation&quot;:[&quot;Simulation Not Working&quot;,&quot;Incorrect Results/Observations&quot;,&quot;Insufficient/Incorrect Instructions&quot;],&quot;DEFAULT&quot;:[&quot;Page Not Loading&quot;,&quot;Content Not Visible&quot;,&quot;Incorrect Content&quot;]}" button_style="border: none; color: #fff; background-color: #288ec8; text-align: center; font-size: 1.05rem; border-radius: 1em;padding: 0.6em 1.2em; margin: 0 10px" position="override" custom_button_class="v-button"></bug-report>
+          </div>
+        </nav>
+      </header>
+      <div class="container-fluid flex-fill d-flex flex-column vlabs-page-main">
+        <div class="row d-flex justify-content-between">
+          <div class="flex-column">
+          <div class="row py-4 px-4 breadcrumbs">
+          	<div class="title is-4 tools">Tools</div>
+          	<span class="mx-2">
+          		<i aria-hidden="true" class="fa fa-angle-right"></i>
+          	</span>
+          	<a href="performance-report.html" class="my-2 mx-3" target="_blank">
+          		<button class="v-button">Performance Tool</button>
+          	</a>
+          	<a href="validator-report.html" class="my-2 mx-3" target="_blank">
+          		<button class="v-button">Validation Tool</button>
+          	</a>
+          </div>
+          </div>
+        </div>
+        <div class="row flex-grow-1 d-flex flex-nowrap flex-column flex-lg-row">
+          <div class="modal fade popupmenu" id="popupMenu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">
+                              <a href="https://vlab.co.in" class="navbar-brand">
+                                  <img src="./assets/images/vlabs-color-small-moe.jpg" alt="vlabs logo" class="vlabs-logo">
+                              </a>
+                          </h5>
+                          <button type="button" class="btn-close align-self-center" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body nav-menu">
+                              <div>
+                                  <div class="d-flex nav-menu-body">
+                                      <a href="index.html" class="p-2 ">
+                                      Aim
+                                      </a>
+                                      
+                                  </div>
+                                  <div id="t-" class="collapse">
+                                      <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="d-flex nav-menu-body">
+                                      <a href="theory.html" class="p-2 ">
+                                      Theory
+                                      </a>
+                                      
+                                  </div>
+                                  <div id="t-" class="collapse">
+                                      <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="d-flex nav-menu-body">
+                                      <a href="pretest.html" class="p-2 ">
+                                      Pretest
+                                      </a>
+                                      
+                                  </div>
+                                  <div id="t-" class="collapse">
+                                      <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="d-flex nav-menu-body">
+                                      <a href="procedure.html" class="p-2  current-item ">
+                                      Procedure
+                                      </a>
+                                      
+                                  </div>
+                                  <div id="t-" class="collapse">
+                                      <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="d-flex nav-menu-body">
+                                      <a href="simulation.html" class="p-2 ">
+                                      Simulation
+                                      </a>
+                                      
+                                  </div>
+                                  <div id="t-" class="collapse">
+                                      <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="d-flex nav-menu-body">
+                                      <a href="posttest.html" class="p-2 ">
+                                      Posttest
+                                      </a>
+                                      
+                                  </div>
+                                  <div id="t-" class="collapse">
+                                      <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="d-flex nav-menu-body">
+                                      <a href="references.html" class="p-2 ">
+                                      References
+                                      </a>
+                                      
+                                  </div>
+                                  <div id="t-" class="collapse">
+                                      <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="d-flex nav-menu-body">
+                                      <a href="contributors.html" class="p-2 ">
+                                      Contributors
+                                      </a>
+                                      
+                                  </div>
+                                  <div id="t-" class="collapse">
+                                      <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="d-flex nav-menu-body">
+                                      <a href="feedback.html" class="p-2 ">
+                                      Feedback
+                                      </a>
+                                      
+                                  </div>
+                                  <div id="t-" class="collapse">
+                                      <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                                      </div>
+                                  </div>
+                              </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="nav flex-column sidebar nav-menu flex-shrink-0 px-lg-4 align-items-center align-items-lg-start hidden d-none d-lg-flex" id="menu">
+                <div>
+                    <div class="d-flex nav-menu-body">
+                        <a href="index.html" class="p-2 ">
+                        Aim
+                        </a>
+                        
+                    </div>
+                    <div id="t-" class="collapse">
+                        <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex nav-menu-body">
+                        <a href="theory.html" class="p-2 ">
+                        Theory
+                        </a>
+                        
+                    </div>
+                    <div id="t-" class="collapse">
+                        <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex nav-menu-body">
+                        <a href="pretest.html" class="p-2 ">
+                        Pretest
+                        </a>
+                        
+                    </div>
+                    <div id="t-" class="collapse">
+                        <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex nav-menu-body">
+                        <a href="procedure.html" class="p-2  current-item ">
+                        Procedure
+                        </a>
+                        
+                    </div>
+                    <div id="t-" class="collapse">
+                        <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex nav-menu-body">
+                        <a href="simulation.html" class="p-2 ">
+                        Simulation
+                        </a>
+                        
+                    </div>
+                    <div id="t-" class="collapse">
+                        <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex nav-menu-body">
+                        <a href="posttest.html" class="p-2 ">
+                        Posttest
+                        </a>
+                        
+                    </div>
+                    <div id="t-" class="collapse">
+                        <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex nav-menu-body">
+                        <a href="references.html" class="p-2 ">
+                        References
+                        </a>
+                        
+                    </div>
+                    <div id="t-" class="collapse">
+                        <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex nav-menu-body">
+                        <a href="contributors.html" class="p-2 ">
+                        Contributors
+                        </a>
+                        
+                    </div>
+                    <div id="t-" class="collapse">
+                        <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex nav-menu-body">
+                        <a href="feedback.html" class="p-2 ">
+                        Feedback
+                        </a>
+                        
+                    </div>
+                    <div id="t-" class="collapse">
+                        <div class="px-3 d-flex flex-column tasks align-items-center align-items-lg-start">
+                        </div>
+                    </div>
+                </div>
+          </div>          <div class="vlabs-page-content px-5 pb-4 flex-grow-1 markdown-body">
+            <div class="text-center fix-spacing">
+              <h1 id="implement-service-based-architecture-sba">Implement Service-Based Architecture (SBA)</h1>
+          
+            </div>
+              <h2 id="learning-objectives">Learning Objectives</h2>
+          <p>Before starting this experiment, understand that you will be:</p>
+          <ol>
+          <li><strong>Designing autonomous services</strong> – Creating independent, self-contained services that operate within a distributed system</li>
+          <li><strong>Configuring service identity</strong> – Using network addresses (IP, port) to make services discoverable and reachable</li>
+          <li><strong>Establishing inter-service communication</strong> – Connecting services so they can collaborate and exchange information</li>
+          <li><strong>Validating network connectivity</strong> – Testing the actual communication pathways between services</li>
+          <li><strong>Observing system behavior</strong> – Using logs to understand how services interact and troubleshoot issues</li>
+          </ol>
+          <p>In Service-Based Architecture (SBA), each service is a loosely coupled, independently deployable component responsible for specific business capabilities. Services communicate over a network using defined protocols (HTTP/1 or HTTP/2), and this communication must be reliable and discoverable.</p>
+          <h2 id="step-1-create-and-start-service-1">Step 1: Create and Start Service 1</h2>
+          <h3 id="conceptual-overview">Conceptual Overview</h3>
+          <p>In this step, you'll create the first autonomous service. Think of this as registering a new participant in a distributed system. Each service needs:</p>
+          <ul>
+          <li><strong>A unique name</strong> for identification</li>
+          <li><strong>A IP address</strong> so other services can locate it on the network</li>
+          <li><strong>A port number</strong> to specify which application on that IP address will handle requests</li>
+          <li><strong>A communication protocol</strong> (HTTP/1 or HTTP/2) that defines how data is transmitted</li>
+          </ul>
+          <p>When you deploy Service1, the system assigns it a unique identity and initializes it as an independent service instance ready to receive and process requests.</p>
+          <h3 id="11-start-service-creation">1.1 Start Service Creation</h3>
+          <p>Click the Create New Service button located in the Services Panel on the dashboard. This opens the configuration panel for a new service.</p>
+          <img src="./images/prd1.png" width="90%" alt="Service-Based Architecture Dashboard">
+          
+          <p><em>Fig: Service-Based Architecture Dashboard</em></p>
+          <h3 id="12-configure-service-1">1.2 Configure Service 1</h3>
+          <p>In the Service Configuration Panel, enter the following details:</p>
+          <p><strong>What each parameter means:</strong></p>
+          <ul>
+          <li><p><strong>Service Name:</strong> Enter Service1.</p>
+          <ul>
+          <li>The service name is a logical identifier that humans and systems use to refer to this service. It's stored in a service registry so other services can locate it by name.</li>
+          </ul>
+          </li>
+          <li><p><strong>IP Address:</strong> Provide a valid IPv4 address. Example: 192.168.1.11</p>
+          <ul>
+          <li>An IPv4 address is a unique identifier for a machine (or virtual machine) on the network. It's like a mailing address.</li>
+          <li>Other services use this address to route network packets to your service's location. Different IP addresses ensure services can be distributed across multiple machines.</li>
+          </ul>
+          </li>
+          <li><p><strong>Port:</strong> Specify a valid port number, such as 8081 or according to your setup.</p>
+          <ul>
+          <li>A port is a logical endpoint on a machine. A single IP address can host multiple services, each listening on a different port (e.g., 8081, 8088, 9000).</li>
+          <li>The port number tells the operating system which application to deliver incoming requests to. Think of IP as the street address and port as the apartment number.</li>
+          </ul>
+          </li>
+          <li><p><strong>Protocol:</strong> Select the required protocol from the dropdown: HTTP/1 or HTTP/2</p>
+          <ul>
+          <li>The protocol defines the rules for communication. HTTP/2 is faster and more efficient than HTTP/1, allowing multiplexing (multiple requests simultaneously).</li>
+          <li>All services that want to communicate with Service1 must use the same protocol. This ensures compatibility and efficient data exchange.</li>
+          </ul>
+          </li>
+          </ul>
+          <img src="./images/prd2.png" width="90%" alt="Configure the Service">
+          
+          <p><em>Fig: Configure the Service</em></p>
+          <h3 id="13-start-service-1">1.3 Start Service 1</h3>
+          <p>Click the Start Service button to initialize and deploy Service1.</p>
+          <p><strong>What happens when you click Start Service:</strong></p>
+          <ol>
+          <li>The system instantiates (creates) a new service instance with your configuration</li>
+          <li>Service1 initializes its internal state and prepares to receive requests</li>
+          <li>The service registers itself in the service registry with its name, IP, port, and protocol</li>
+          <li>The service enters a "listening" state on the specified port and waits for incoming requests</li>
+          <li>Resource state is set to "Stable" once initialization completes</li>
+          </ol>
+          <img src="./images/prd3.png" width="90%" alt="Service1 is now Stable">
+          
+          <p><em>Fig: Service1 is now Stable</em></p>
+          <h3 id="14-verify-service-1-logs">1.4 Verify Service 1 Logs</h3>
+          <p>After starting the service:</p>
+          <ul>
+          <li>Wait about 5 seconds for initialization.</li>
+          <li>Scroll to the Service Logs Panel at the bottom.</li>
+          <li>Look for log messages such as:<ul>
+          <li>Service1 initialized successfully</li>
+          <li>Service1 is now active</li>
+          </ul>
+          </li>
+          </ul>
+          <p>Logs are a critical tool in distributed systems. They provide visibility into service behavior. The messages you see indicate:</p>
+          <ul>
+          <li><strong>initialized successfully</strong> – The service completed its startup sequence without errors</li>
+          <li><strong>is now active</strong> – The service is listening for incoming requests and ready to process them</li>
+          </ul>
+          <p>If you don't see these messages after 5 seconds, the service may have failed due to configuration errors (e.g., port already in use, invalid IP address). Logs are essential for troubleshooting such issues in production systems.</p>
+          <hr>
+          <h2 id="step-2-create-service-2-and-establish-connection">Step 2: Create Service 2 and Establish Connection</h2>
+          <h3 id="conceptual-overview-1">Conceptual Overview</h3>
+          <p>Now you'll create a second autonomous service and observe how services discover and communicate with each other. In a distributed system:</p>
+          <ul>
+          <li>Multiple services coexist independently</li>
+          <li>Each maintains its own state and logic</li>
+          <li>Services communicate via well-defined network protocols</li>
+          <li>Service discovery (finding where other services are) is automatic in many systems</li>
+          </ul>
+          <p>When Service2 starts, the simulation will demonstrate <strong>automatic service-to-service communication</strong> – Service1 will detect Service2's presence and establish communication pipes. This is a core pattern in SBA called "service orchestration."</p>
+          <h3 id="21-create-service-2">2.1 Create Service 2</h3>
+          <p>Click the Create New Service button again to start creating your second service.</p>
+          <h3 id="22-configure-service-2">2.2 Configure Service 2</h3>
+          <p>In the configuration panel, fill in:</p>
+          <p><strong>Configuration details:</strong></p>
+          <ul>
+          <li><p><strong>Service Name:</strong> Enter Service2.</p>
+          <ul>
+          <li><em>Note:</em> This must be different from Service1 so the system can distinguish between them.</li>
+          </ul>
+          </li>
+          <li><p><strong>IP Address:</strong> Provide a different valid IPv4 address. Example: 192.168.1.21</p>
+          </li>
+          <li><p><strong>Port:</strong> Enter a port number such as 8088.</p>
+          <ul>
+          <li> Each service needs a unique network endpoint. If they used the same port number on the same IP, there would be conflicts.</li>
+          </ul>
+          </li>
+          <li><p><strong>Protocol:</strong> It may auto-select based on Service1's protocol. Otherwise, select HTTP/2 manually.</p>
+          <ul>
+          <li>All services communicating with each other must use the same protocol. The system enforces this automatically to ensure compatibility.</li>
+          </ul>
+          </li>
+          </ul>
+          <img src="./images/prd4.png" width="90%" alt="Configure the Service">
+          
+          <p><em>Fig: Configure the Service</em></p>
+          <h3 id="23-start-service-2">2.3 Start Service 2</h3>
+          <p>Click Start Service to deploy and activate Service2.</p>
+          <p><strong>What happens during Service2 startup:</strong></p>
+          <ol>
+          <li>Service2 initializes and registers itself in the service registry</li>
+          <li>The system automatically discovers that Service1 is already running</li>
+          <li>Service2 notifies Service1 of its presence (service discovery event)</li>
+          <li>Both services begin establishing communication channels</li>
+          <li>The inter-service communication link becomes active</li>
+          </ol>
+          <p>This automatic service discovery is a key feature of SBA – services don't need manual configuration to find each other; the infrastructure handles it.</p>
+          <img src="./images/prd5.png" width="90%" alt="Service2 is now Stable">
+          
+          <p><em>Fig: Service2 is now Stable</em></p>
+          <h3 id="24-verify-inter-service-connection-logs">2.4 Verify Inter-Service Connection Logs</h3>
+          <p>Once Service2 starts:</p>
+          <ul>
+          <li>Open the Service Logs Panel again.</li>
+          <li>Look for logs showing communication between Service1 and Service2:<ul>
+          <li>Service1 → Response sent to Service2</li>
+          <li>Service2 → Response received from Service1</li>
+          </ul>
+          </li>
+          </ul>
+          <p><strong>Understanding the logs:</strong>
+          These two log messages reveal a critical aspect of service communication:</p>
+          <ul>
+          <li><strong>Service1 → Response sent to Service2</strong> – Service1 is acting as a provider/server, sending data to Service2</li>
+          <li><strong>Service2 → Response received from Service1</strong> – Service2 is acting as a consumer/client, receiving data from Service1</li>
+          </ul>
+          <p>This demonstrates <strong>bidirectional communication</strong> – services can both send and receive data. In SBA, services often play multiple roles:</p>
+          <ul>
+          <li><strong>Provider role:</strong> Offering functionality to other services</li>
+          <li><strong>Consumer role:</strong> Using functionality from other services</li>
+          <li><strong>Orchestrator role:</strong> Coordinating multiple service calls</li>
+          </ul>
+          <p>These logs confirm that the communication protocol is working correctly and data is flowing between services without errors.</p>
+          <img src="./images/prd6.png" width="90%" alt="Verify the Request/Response Logs">
+          
+          <p><em>Fig: Verify the Request/Response Logs</em></p>
+          <h2 id="step-3-validate-connectivity">Step 3: Validate Connectivity</h2>
+          <h3 id="overview">Overview</h3>
+          <p>So far you've created services and observed logs showing they're communicating. However, SBA systems must be continuously validated to ensure reliability. In this step, you'll conduct an explicit connectivity test to verify that the underlying network path between services is functional. This is essential because:</p>
+          <ol>
+          <li><strong>Logs can be misleading</strong> – A service might log a message but the actual network delivery could fail</li>
+          <li><strong>Network issues are common</strong> – Firewalls, routing problems, or misconfigurations can break service-to-service communication</li>
+          <li><strong>Production systems require verification</strong> – You can't assume connectivity works; you must test it</li>
+          <li><strong>Troubleshooting skills are critical</strong> – Understanding how to diagnose connectivity issues is essential for operating distributed systems</li>
+          </ol>
+          <p>The <strong>ping command</strong> is a fundamental network diagnostic tool. It sends small probe packets (ICMP echo requests) to a target IP address and waits for responses. The results tell you:</p>
+          <ul>
+          <li>Whether the target service is reachable</li>
+          <li>How fast the network connection is (latency)</li>
+          <li>Whether packets are being lost (packet loss %)</li>
+          </ul>
+          <h3 id="31-open-terminal-for-service2">3.1 Open Terminal for Service2</h3>
+          <ul>
+          <li>Click on the Service2 icon on the dashboard.</li>
+          <li>In the right-hand configuration panel, scroll down.</li>
+          <li>Click the Open Service Terminal button.</li>
+          </ul>
+          <p>This opens a dedicated terminal window showing:</p>
+          <ul>
+          <li><strong>Service Name</strong> – Which service this terminal belongs to (Service2)</li>
+          <li><strong>Service IP</strong> – The network address of this service (e.g., 192.168.1.21)</li>
+          <li><strong>Port</strong> – The port this service is listening on</li>
+          <li><strong>Status</strong> – Current operational state of the service</li>
+          </ul>
+          <p>We're testing whether Service2 can reach Service1. By opening Service2's terminal, we simulate sending network requests from Service2's context.</p>
+          <img src="./images/prd7.png" width="90%" alt="NF Terminal">
+          
+          <p><em>Fig: NF Terminal</em></p>
+          <h3 id="32-execute-a-ping-command">3.2 Execute a Ping Command</h3>
+          <p>In the terminal command input box, type the ping command with Service1's IP address:</p>
+          <pre><code>ping &lt;Service1_IP&gt;
+          </code></pre>
+          <p>Example (if Service1's IP is 192.168.1.21):</p>
+          <pre><code>ping 192.168.1.21
+          </code></pre>
+          <p><strong>What the ping command does:</strong></p>
+          <ul>
+          <li>Sends 4 probe packets (echo requests) to the target IP address</li>
+          <li>Waits for responses from the target</li>
+          <li>Measures the round-trip time (RTT) for each packet</li>
+          <li>Reports success/failure and network statistics</li>
+          </ul>
+          <h3 id="33-send-command">3.3 Send Command</h3>
+          <p>Click the Send button to execute the ping command.</p>
+          <p><strong>What happens during execution:</strong></p>
+          <ol>
+          <li>The system sends the ping request from Service2</li>
+          <li>The network routes the request to Service1's IP address</li>
+          <li>Service1 receives the probe and sends a response back</li>
+          <li>Service2 receives the response and records the latency</li>
+          <li>This repeats for 4 packets</li>
+          </ol>
+          <img src="./images/prd8.png" width="90%" alt="Ping Test">
+          
+          <p><em>Fig: Ping Test</em></p>
+          <h3 id="34-analyze-connectivity-results">3.4 Analyze Connectivity Results</h3>
+          <p>Check the terminal output:</p>
+          <ul>
+          <li>You should see multiple lines like: "Reply from 192.168.1.18: bytes=32 time&lt;1ms"</li>
+          <li>After completion, a summary appears showing:<ul>
+          <li><strong>Packets Sent: 4</strong> – Four probe packets were transmitted</li>
+          <li><strong>Packets Received: 4</strong> – All four packets were successfully delivered and responses came back</li>
+          <li><strong>Packet Loss: 0%</strong> – No packets were lost in transit</li>
+          </ul>
+          </li>
+          </ul>
+          <p><strong>Interpreting the results:</strong></p>
+          <table>
+          <thead>
+          <tr>
+          <th>Metric</th>
+          <th>What It Means</th>
+          <th>Good vs. Bad</th>
+          </tr>
+          </thead>
+          <tbody><tr>
+          <td><strong>Packets Received = Packets Sent</strong></td>
+          <td>All probes reached the destination</td>
+          <td>Good – indicates a healthy network path</td>
+          </tr>
+          <tr>
+          <td><strong>Packet Loss: 0%</strong></td>
+          <td>No data was lost during transmission</td>
+          <td>Good – critical for reliable service communication</td>
+          </tr>
+          <tr>
+          <td><strong>time &lt; 1ms</strong></td>
+          <td>Very low latency (fast response)</td>
+          <td>Good – services can communicate rapidly</td>
+          </tr>
+          </tbody></table>
+          <ul>
+          <li><strong>0% Packet Loss</strong> is crucial for SBA. If packets are being dropped (&gt;0% loss), services may experience timeouts or message loss</li>
+          <li><strong>Low Latency</strong> indicates efficient network performance. High latency (&gt;100ms) might cause service timeouts</li>
+          <li><strong>Successful ping</strong> proves the network layer is functional and the services are reachable</li>
+          </ul>
+          <p><strong>Troubleshooting scenarios:</strong>
+          If you see different results:</p>
+          <ul>
+          <li><strong>Packets Received &lt; Packets Sent:</strong> Some packets didn't return → possible network congestion or firewall blocking</li>
+          <li><strong>High Packet Loss (&gt;10%):</strong> Unreliable network → service communication may fail intermittently</li>
+          <li><strong>Very high latency (&gt;1000ms):</strong> Network is slow → services may timeout waiting for responses</li>
+          <li><strong>Destination Unreachable</strong> error → Service1 is unreachable → check if Service1 is running and IP address is correct</li>
+          </ul>
+          <p>This connectivity validation completes the experiment and demonstrates the full lifecycle of distributed service communication: service creation → service discovery → service communication → connectivity validation.</p>
+          
+          </div>
+          <div class="bug-report-mobile">
+              <bug-report id="bug-report" title="[BUG REPORT] Implement Service-Based Architecture (SBA)" page-type="text" context-info="{&quot;organisation&quot;:&quot;Virtual Labs&quot;,&quot;developer_institute&quot;:&quot;DLBG&quot;,&quot;expname&quot;:&quot;Implement Service-Based Architecture (SBA)&quot;,&quot;labname&quot;:&quot;Virtual Lab&quot;,&quot;phase&quot;:&quot;Testing&quot;}" checkbox-json="{&quot;text&quot;:[&quot;Insufficient Content&quot;],&quot;video&quot;:[&quot;Insufficient Content&quot;],&quot;assesment&quot;:[&quot;Incorrect Options&quot;,&quot;Incorrect Answer&quot;,&quot;Incorrect Question&quot;],&quot;assessment&quot;:[&quot;Incorrect Options&quot;,&quot;Incorrect Answer&quot;,&quot;Incorrect Question&quot;],&quot;simulation&quot;:[&quot;Simulation Not Working&quot;,&quot;Incorrect Results/Observations&quot;,&quot;Insufficient/Incorrect Instructions&quot;],&quot;DEFAULT&quot;:[&quot;Page Not Loading&quot;,&quot;Content Not Visible&quot;,&quot;Incorrect Content&quot;]}" position="override" button_style="
+                          position: fixed; 
+                          bottom: 20px;
+                          right: 20px;
+                          z-index: 1;
+                          font-size: 0;
+                          padding: 25px;
+                          border-radius: 50%;
+                          border: none;
+                          background-color: #0fc0ff;
+                          background-image: url(data:image/png;base64,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);
+                          background-repeat: no-repeat;
+                          background-position: center;
+                          background-size: 30px;
+                          filter: invert(1);">
+              </bug-report>
+          </div>        </div>
+      </div>
+      <footer class="text-light pt-2 vlabs-footer d-flex flex-column">
+        <div class="row px-5 mx-0">
+          <div class="col d-flex flex-column">
+            <span class="font-weight-bold vlabs-footer-sect-name pb-2 mb-3">Community Links</span>
+            <a href="https://www.sakshat.ac.in/" class="text-light">Sakshat Portal</a>
+            <a href="http://outreach.vlabs.ac.in/" class="text-light">Outreach Portal</a>
+            <a href="https://vlab.co.in/faq" class="text-light">FAQ: Virtual Labs</a>
+          </div>
+          <div class="col d-flex flex-column">
+            <span class="font-weight-bold vlabs-footer-sect-name pb-2 mb-3">Contact Us</span>
+            <span> Phone: General Information: 011-26582050 </span>
+            <span> Email: support@vlabs.ac.in </span>
+          </div>
+          <div class="col d-flex flex-column">
+            <span class="font-weight-bold vlabs-footer-sect-name pb-2 mb-3">Follow Us</span>
+            <div class="social-links">
+      	<a class="p-2 mt-1 mr-2 d-inline-flex justify-content-center align-items-center" style="background: #55acee;" href="https://twitter.com/TheVirtualLabs">
+      	  <i class="fab fa-twitter"></i>
+      	</a>
+      	<a class="p-2 mt-1 mr-2 d-inline-flex justify-content-center align-items-center" style="background: #3b5998;" href="https://www.facebook.com/Virtual-Labs-IIT-Delhi-301510159983871/">
+      	  <i class="fab fa-facebook"></i>
+      	</a>
+      	<a class="p-2 mt-1 mr-2 d-inline-flex justify-content-center align-items-center" style="background: #e52d27;" href="https://www.youtube.com/watch?v=asxRaOgk6a0">
+      	  <i class="fab fa-youtube"></i>
+      	</a>
+      	<a class="p-2 mt-1 mr-2 d-inline-flex justify-content-center align-items-center" style="background: #2867B2;" href="https://in.linkedin.com/in/virtual-labs-008ba9136">
+      	  <i class="fab fa-linkedin"></i>
+      	</a>
+            </div>
+          </div>
+        </div>
+        <div class="m-0 py-2 text-center" style="font-family: &quot;Open Sans&quot;, sans-serif; background: #212121;">
+          <a class="text-primary font-weight-bold" href="https://www.gnu.org/licenses/agpl-3.0.en.html"> AGPL 3.0 </a>
+          &nbsp;&amp;&nbsp;
+          <a class="text-primary font-weight-bold" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"> Creative Commons (CC BY-NC-SA 4.0) </a>
+        </div>
+      </footer>
+    <script src="./assets/js/toggleSidebar.js"></script>
+    <script src="./assets/js/event-handler.js"></script>
+
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register("sw.js");
+        });
+      }
+    </script>
+  
+
+<script type="module" src="https://cdn.vlabs.ac.in/bug-report/vlabs-bug-report.js"></script><script type="module" src="/exp-sba-dei/plugins/svc-rating/index.js"></script><script type="module" src="/exp-sba-dei/plugins/svc-rating/config.js"></script><script type="module" src="https://apis.google.com/js/api.js"></script></body></html>
