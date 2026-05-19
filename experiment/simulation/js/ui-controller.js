@@ -3,7 +3,7 @@
  * UI CONTROLLER
  * ============================================
  * Manages all user interface interactions and updates
- *
+ * 
  * Responsibilities:
  * - Handle button clicks
  * - Manage modals
@@ -743,12 +743,12 @@ class UIController {
 
         configForm.innerHTML = `
             <h4>Create New Service</h4>
-           
+            
             <div class="form-group">
                 <label>Service Name *</label>
                 <input type="text" id="config-name" value="${defaultName}" required placeholder="e.g., UserService, PaymentAPI">
             </div>
-           
+            
             <div class="form-group">
                 <label>IP Address *</label>
                 <input type="text" id="config-ip" value="${defaultIP}" required placeholder="e.g., 192.168.1.10">
@@ -759,12 +759,12 @@ class UIController {
                     IP Invalid
                 </div>
             </div>
-           
+            
             <div class="form-group">
                 <label>Port *</label>
                 <input type="number" id="config-port" value="${defaultPort}" required min="1" max="65535">
             </div>
-           
+            
             <div class="form-group">
                 <label>Protocol ${isProtocolLocked ? '(Locked)' : ''}</label>
                 <select id="config-protocol" ${isProtocolLocked ? 'disabled' : ''}>
@@ -772,12 +772,12 @@ class UIController {
                 </select>
                 ${isProtocolLocked ? `<small style="color: #f39c12; font-size: 11px; display: block; margin-top: 4px;">Protocol is locked to ${globalProtocol} based on existing services</small>` : ''}
             </div>
-           
+            
             <div class="form-group">
                 <label>Description (Optional)</label>
                 <input type="text" id="config-description" placeholder="Brief description of the service">
             </div>
-           
+            
             <button class="btn btn-success btn-block" id="btn-start-service">
                 🚀 Start Service
             </button>
@@ -898,10 +898,19 @@ class UIController {
         // Check for duplicate service name
         const existingServices = window.dataStore?.getAllNFs() || [];
         const duplicateService = existingServices.find(s => s.name.toLowerCase() === name.toLowerCase());
-       
+        
         if (duplicateService) {
             alert(`A service named "${name}" already exists. Please choose a different name.`);
             document.getElementById('config-name')?.focus();
+            return;
+        }
+
+        // Check for duplicate IP address
+        const duplicateIP = existingServices.find(s => s.config?.ipAddress === ipAddress);
+        
+        if (duplicateIP) {
+            alert(`A service with IP address "${ipAddress}" already exists. Please choose a different IP address.`);
+            document.getElementById('config-ip')?.focus();
             return;
         }
 
@@ -1042,43 +1051,43 @@ class UIController {
 
         configForm.innerHTML = `
             <h4>Service Information</h4>
-           
+            
             <div class="form-group">
                 <label>Service Name</label>
                 <input type="text" value="${nf.name}" readonly>
             </div>
-           
+            
             <div class="form-group">
                 <label>IP Address</label>
                 <input type="text" value="${nf.config?.ipAddress || 'N/A'}" readonly>
             </div>
-           
+            
             <div class="form-group">
                 <label>Port</label>
                 <input type="text" value="${nf.config?.port || 'N/A'}" readonly>
             </div>
-           
+            
             <div class="form-group">
                 <label>Protocol</label>
                 <input type="text" value="${nf.config?.protocol || 'N/A'}" readonly>
             </div>
-           
+            
             <div class="form-group">
                 <label>Endpoint</label>
                 <input type="text" value="${nf.config?.endpoint || 'N/A'}" readonly>
             </div>
-           
+            
             <div class="form-group">
                 <label>Status</label>
                 <input type="text" value="${nf.status || 'Unknown'}" readonly>
             </div>
-           
-           
+            
+            
             <button class="btn btn-info btn-block" id="btn-open-terminal" style="margin-bottom: 10px;">
                 💻 Open Service Terminal
             </button>
-           
-           
+            
+            
             <button class="btn btn-danger btn-block" id="btn-delete-service">
                 🗑️ Delete Service
             </button>
@@ -1296,7 +1305,7 @@ Type 'help' for available commands.
         const termBody = document.getElementById('terminal-body');
 
         // Build full command list including dynamic ping variants
-        const baseCommands = ['help', 'ifconfig', 'ping', 'clear', 'exit'];
+        const baseCommands = ['help', 'ifconfig', 'ping', 'ping subnet', 'clear', 'exit'];
         const allServices = window.dataStore?.getAllNFs() || [];
         const serviceIPs = allServices
             .filter(s => s.id !== this.currentTerminalService?.id)
@@ -1383,6 +1392,7 @@ Type 'help' for available commands.
   help          - Show this help message
   ifconfig      - Show network configuration
   ping <ip>     - Ping a specific IP address
+  ping subnet   - Ping all services in the same subnet
   clear           - Clear screen
   exit          - Close terminal
 
@@ -1391,7 +1401,7 @@ Type 'help' for available commands.
             output.textContent += `Windows IP Configuration
 
 Ethernet adapter Local Area Connection:
-   Connection-specific DNS Suffix  . :
+   Connection-specific DNS Suffix  . : 
    IPv4 Address. . . . . . . . . . . : ${service.config.ipAddress}
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
    Default Gateway . . . . . . . . . : ${this.getSubnetFromIP(service.config.ipAddress)}.1
@@ -1403,7 +1413,11 @@ Ethernet adapter Local Area Connection:
             document.getElementById('terminal-modal').style.display = 'none';
         } else if (cmd.startsWith('ping ')) {
             const target = cmd.substring(5).trim();
-            this.executePingCommand(service, target);
+            if (target === 'subnet') {
+                this.executePingSubnet(service);
+            } else {
+                this.executePingCommand(service, target);
+            }
         } else {
             output.textContent += `'${command}' is not recognized as an internal or external command,
 operable program or batch file.
@@ -1419,7 +1433,6 @@ operable program or batch file.
      */
     executePingCommand(service, targetIP) {
         const output = document.getElementById('terminal-output');
-        const input = document.getElementById('terminal-input');
 
         // Validate IP format
         if (!this.validateIPAddress(targetIP)) {
@@ -1427,13 +1440,6 @@ operable program or batch file.
 
 `;
             return;
-        }
-
-        // Disable input during ping execution
-        if (input) {
-            input.disabled = true;
-            input.style.opacity = '0.5';
-            input.style.cursor = 'not-allowed';
         }
 
         // Check if target IP exists in services
@@ -1463,14 +1469,6 @@ Ping statistics for ${targetIP}:
 `;
                     const tb2 = document.getElementById('terminal-body');
                     if (tb2) tb2.scrollTop = tb2.scrollHeight;
-                    
-                    // Re-enable input after ping completes
-                    if (input) {
-                        input.disabled = false;
-                        input.style.opacity = '1';
-                        input.style.cursor = 'text';
-                        input.focus();
-                    }
                 }
             };
             showTimeout();
@@ -1528,14 +1526,6 @@ Approximate round trip times in milli-seconds:
                             success: true
                         });
                     }
-                    
-                    // Re-enable input after ping completes
-                    if (input) {
-                        input.disabled = false;
-                        input.style.opacity = '1';
-                        input.style.cursor = 'text';
-                        input.focus();
-                    }
                 }, 1000); // Small delay before showing statistics
             }
         };
@@ -1544,7 +1534,73 @@ Approximate round trip times in milli-seconds:
         setTimeout(showPingReply, 100);
     }
 
+    /**
+     * Execute ping subnet command
+     * @param {Object} service - Source service
+     */
+    executePingSubnet(service) {
+        const output = document.getElementById('terminal-output');
+        const sourceIP = service.config?.ipAddress;
 
+        if (!sourceIP) {
+            output.textContent += `Error: Service has no IP address configured.
+
+`;
+            return;
+        }
+
+        const subnet = this.getSubnetFromIP(sourceIP);
+        if (!subnet) {
+            output.textContent += `Error: Invalid IP address format.
+
+`;
+            return;
+        }
+
+        // Get all services in same subnet
+        const allServices = window.dataStore?.getAllNFs() || [];
+        const subnetServices = allServices.filter(s => {
+            if (s.id === service.id) return false;
+            const targetIP = s.config?.ipAddress;
+            if (!targetIP) return false;
+            return this.getSubnetFromIP(targetIP) === subnet;
+        });
+
+        output.textContent += `Scanning subnet ${subnet}.0/24 for active services...
+
+`;
+
+        if (subnetServices.length === 0) {
+            output.textContent += `No other services found in subnet ${subnet}.0/24
+
+`;
+        } else {
+            output.textContent += `Found ${subnetServices.length} service(s) in subnet:
+
+`;
+
+            subnetServices.forEach(targetService => {
+                const responseTime = Math.floor(Math.random() * 50) + 10;
+                output.textContent += `${targetService.config.ipAddress} (${targetService.name}) - ${responseTime}ms
+`;
+            });
+
+            output.textContent += `
+Subnet scan complete.
+
+`;
+        }
+
+        // Log the subnet ping
+        if (window.logEngine) {
+            window.logEngine.addLog(service.id, 'INFO',
+                `Subnet ping executed for ${subnet}.0/24`, {
+                subnet: subnet + '.0/24',
+                servicesFound: subnetServices.length,
+                serviceNames: subnetServices.map(s => s.name).join(', ')
+            });
+        }
+    }
 
     /**
      * Get subnet from IP address (assumes /24 subnet)
