@@ -753,7 +753,7 @@ class UIController {
                 <label>IP Address *</label>
                 <input type="text" id="config-ip" value="${defaultIP}" required placeholder="e.g., 192.168.1.10">
                 <small id="ip-help-text" style="color: #95a5a6; font-size: 11px; display: block; margin-top: 4px;">
-                    Enter a valid IPv4 address (0.0.0.0 to 255.255.255.255)
+                    Enter a valid IPv4 address (1.0.0.0 to 255.255.255.255) - 0.0.0.0 is not allowed
                 </small>
                 <div id="ip-error" style="color: #e74c3c; font-size: 12px; margin-top: 4px; display: none; font-weight: bold;">
                     IP Invalid
@@ -762,7 +762,13 @@ class UIController {
             
             <div class="form-group">
                 <label>Port *</label>
-                <input type="number" id="config-port" value="${defaultPort}" required min="1" max="65535">
+                <input type="text" id="config-port" value="${defaultPort}" required placeholder="e.g., 8080">
+                <small id="port-help-text" style="color: #95a5a6; font-size: 11px; display: block; margin-top: 4px;">
+                    Enter a port number (4-6 digits: 1000-999999)
+                </small>
+                <div id="port-error" style="color: #e74c3c; font-size: 12px; margin-top: 4px; display: none; font-weight: bold;">
+                    Port must be 4-6 digits
+                </div>
             </div>
             
             <div class="form-group">
@@ -791,6 +797,8 @@ class UIController {
 
         if (ipInput && ipError && ipHelpText) {
             ipInput.addEventListener('input', (e) => {
+                // Allow only digits and dots for IP address
+                e.target.value = e.target.value.replace(/[^0-9.]/g, '');
                 const ip = e.target.value;
                 const isValid = this.validateIPAddress(ip);
 
@@ -803,6 +811,33 @@ class UIController {
                     // Hide error message and show help text
                     ipError.style.display = 'none';
                     ipHelpText.style.display = 'block';
+                    e.target.classList.remove('error');
+                }
+            });
+        }
+
+        // Port validation on input
+        const portInput = document.getElementById('config-port');
+        const portError = document.getElementById('port-error');
+        const portHelpText = document.getElementById('port-help-text');
+
+        if (portInput && portError && portHelpText) {
+            portInput.addEventListener('input', (e) => {
+                // Allow only digits for port
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                const port = e.target.value;
+                const portNum = parseInt(port);
+                const isValid = this.validatePortNumber(port);
+
+                if (port && !isValid) {
+                    // Show error message and hide help text
+                    portError.style.display = 'block';
+                    portHelpText.style.display = 'none';
+                    e.target.classList.add('error');
+                } else {
+                    // Hide error message and show help text
+                    portError.style.display = 'none';
+                    portHelpText.style.display = 'block';
                     e.target.classList.remove('error');
                 }
             });
@@ -859,9 +894,35 @@ class UIController {
      * @returns {boolean} True if valid IP address
      */
     validateIPAddress(ip) {
-        // Regular expression for IPv4 validation
-        const ipv4Regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-        return ipv4Regex.test(ip);
+        // Regular expression for IPv4 validation with first octet ≥ 1
+        const ipv4Regex = /^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        if (!ipv4Regex.test(ip)) return false;
+        
+        // Block 0.0.0.0 explicitly
+        if (ip === '0.0.0.0') return false;
+        
+        return true;
+    }
+
+    /**
+     * Validate port number (must be 4-6 digits)
+     * @param {string|number} port - Port number to validate
+     * @returns {boolean} True if valid port number
+     */
+    validatePortNumber(port) {
+        const portStr = String(port);
+        const portNum = parseInt(port);
+        
+        // Check if it's a valid number
+        if (isNaN(portNum)) return false;
+        
+        // Check if it's 4-6 digits (1000-999999)
+        if (portStr.length < 4 || portStr.length > 6) return false;
+        
+        // Check if it's within valid range
+        if (portNum < 1000 || portNum > 999999) return false;
+        
+        return true;
     }
 
     /**
@@ -876,6 +937,16 @@ class UIController {
             ipError.style.display = 'none';
             ipHelpText.style.display = 'block';
             ipInput.classList.remove('error');
+        }
+
+        const portError = document.getElementById('port-error');
+        const portHelpText = document.getElementById('port-help-text');
+        const portInput = document.getElementById('config-port');
+
+        if (portError && portHelpText && portInput) {
+            portError.style.display = 'none';
+            portHelpText.style.display = 'block';
+            portInput.classList.remove('error');
         }
     }
 
@@ -928,13 +999,25 @@ class UIController {
                 ipInput.focus(); // Focus on the invalid field
             }
 
-            alert('Invalid IP address format. Please enter a valid IPv4 address (e.g., 192.168.1.10)');
+            alert('The entered IP address is not allowed! Please enter a valid IPv4 address between 1.0.0.0 and 255.255.255.255 (0.0.0.0 is not allowed).');
             return;
         }
 
-        // Validate port range
-        if (port < 1 || port > 65535) {
-            alert('Invalid port number. Please enter a port between 1 and 65535');
+        // Validate port number (must be 4-6 digits)
+        if (!this.validatePortNumber(port)) {
+            // Show error message in the form
+            const portError = document.getElementById('port-error');
+            const portHelpText = document.getElementById('port-help-text');
+            const portInput = document.getElementById('config-port');
+
+            if (portError && portHelpText && portInput) {
+                portError.style.display = 'block';
+                portHelpText.style.display = 'none';
+                portInput.classList.add('error');
+                portInput.focus(); // Focus on the invalid field
+            }
+
+            alert('The entered port is not allowed! Port must be 4-6 digits (1000-999999).');
             return;
         }
 
@@ -1305,7 +1388,7 @@ Type 'help' for available commands.
         const termBody = document.getElementById('terminal-body');
 
         // Build full command list including dynamic ping variants
-        const baseCommands = ['help', 'ifconfig', 'ping', 'ping subnet', 'clear', 'exit'];
+        const baseCommands = ['help', 'ifconfig', 'ping', 'clear', 'exit'];
         const allServices = window.dataStore?.getAllNFs() || [];
         const serviceIPs = allServices
             .filter(s => s.id !== this.currentTerminalService?.id)
@@ -1392,7 +1475,6 @@ Type 'help' for available commands.
   help          - Show this help message
   ifconfig      - Show network configuration
   ping <ip>     - Ping a specific IP address
-  ping subnet   - Ping all services in the same subnet
   clear           - Clear screen
   exit          - Close terminal
 
@@ -1413,11 +1495,7 @@ Ethernet adapter Local Area Connection:
             document.getElementById('terminal-modal').style.display = 'none';
         } else if (cmd.startsWith('ping ')) {
             const target = cmd.substring(5).trim();
-            if (target === 'subnet') {
-                this.executePingSubnet(service);
-            } else {
-                this.executePingCommand(service, target);
-            }
+            this.executePingCommand(service, target);
         } else {
             output.textContent += `'${command}' is not recognized as an internal or external command,
 operable program or batch file.
@@ -1433,12 +1511,26 @@ operable program or batch file.
      */
     executePingCommand(service, targetIP) {
         const output = document.getElementById('terminal-output');
+        const input = document.getElementById('terminal-input');
+
+        // Disable terminal input during ping execution
+        if (input) {
+            input.disabled = true;
+            input.style.opacity = '0.5';
+            input.style.cursor = 'not-allowed';
+        }
 
         // Validate IP format
         if (!this.validateIPAddress(targetIP)) {
             output.textContent += `Ping request could not find host ${targetIP}. Please check the name and try again.
 
 `;
+            // Re-enable input immediately for invalid IP
+            if (input) {
+                input.disabled = false;
+                input.style.opacity = '1';
+                input.style.cursor = 'text';
+            }
             return;
         }
 
@@ -1469,6 +1561,14 @@ Ping statistics for ${targetIP}:
 `;
                     const tb2 = document.getElementById('terminal-body');
                     if (tb2) tb2.scrollTop = tb2.scrollHeight;
+
+                    // Re-enable input after ping completes
+                    if (input) {
+                        input.disabled = false;
+                        input.style.opacity = '1';
+                        input.style.cursor = 'text';
+                        input.focus();
+                    }
                 }
             };
             showTimeout();
@@ -1526,80 +1626,20 @@ Approximate round trip times in milli-seconds:
                             success: true
                         });
                     }
+
+                    // Re-enable input after ping completes
+                    if (input) {
+                        input.disabled = false;
+                        input.style.opacity = '1';
+                        input.style.cursor = 'text';
+                        input.focus();
+                    }
                 }, 1000); // Small delay before showing statistics
             }
         };
 
         // Start showing replies after a brief delay
         setTimeout(showPingReply, 100);
-    }
-
-    /**
-     * Execute ping subnet command
-     * @param {Object} service - Source service
-     */
-    executePingSubnet(service) {
-        const output = document.getElementById('terminal-output');
-        const sourceIP = service.config?.ipAddress;
-
-        if (!sourceIP) {
-            output.textContent += `Error: Service has no IP address configured.
-
-`;
-            return;
-        }
-
-        const subnet = this.getSubnetFromIP(sourceIP);
-        if (!subnet) {
-            output.textContent += `Error: Invalid IP address format.
-
-`;
-            return;
-        }
-
-        // Get all services in same subnet
-        const allServices = window.dataStore?.getAllNFs() || [];
-        const subnetServices = allServices.filter(s => {
-            if (s.id === service.id) return false;
-            const targetIP = s.config?.ipAddress;
-            if (!targetIP) return false;
-            return this.getSubnetFromIP(targetIP) === subnet;
-        });
-
-        output.textContent += `Scanning subnet ${subnet}.0/24 for active services...
-
-`;
-
-        if (subnetServices.length === 0) {
-            output.textContent += `No other services found in subnet ${subnet}.0/24
-
-`;
-        } else {
-            output.textContent += `Found ${subnetServices.length} service(s) in subnet:
-
-`;
-
-            subnetServices.forEach(targetService => {
-                const responseTime = Math.floor(Math.random() * 50) + 10;
-                output.textContent += `${targetService.config.ipAddress} (${targetService.name}) - ${responseTime}ms
-`;
-            });
-
-            output.textContent += `
-Subnet scan complete.
-
-`;
-        }
-
-        // Log the subnet ping
-        if (window.logEngine) {
-            window.logEngine.addLog(service.id, 'INFO',
-                `Subnet ping executed for ${subnet}.0/24`, {
-                subnet: subnet + '.0/24',
-                servicesFound: subnetServices.length,
-                serviceNames: subnetServices.map(s => s.name).join(', ')
-            });
-        }
     }
 
     /**
