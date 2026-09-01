@@ -9,4 +9,6 @@ https://ieeexplore.ieee.org/abstract/document/10258072
 3. #### Security Assessment of HTTP/2 Usage in 5G Service-Based Architecture
 https://ieeexplore.ieee.org/abstract/document/9952199
 
+3. #### TS 123 502 - V16.7.0 - 5G
+https://www.etsi.org/deliver/etsi_ts/123500_123599/123502/16.07.00_60/ts_123502v160700p.pdf
 </div>

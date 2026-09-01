@@ -15,7 +15,7 @@ In Service-Based Architecture (SBA), each service is a loosely coupled, independ
 ### Conceptual Overview
 In this step, you'll create the first autonomous service. Think of this as registering a new participant in a distributed system. Each service needs:
 - **A unique name** for identification
-- **A IP address** so other services can locate it on the network
+- **An IP address** so other services can locate it on the network
 - **A port number** to specify which application on that IP address will handle requests
 - **A communication protocol** (HTTP/1 or HTTP/2) that defines how data is transmitted
 
