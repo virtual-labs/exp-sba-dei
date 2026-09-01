@@ -19,7 +19,7 @@ Network Functions communicate through four primary service operations over SBI:
 
 <img src="images/fig-1.svg" alt="[Service-Based Architecture" width="50%">
 
-*Fig1: Service-Based Architecture* 
+*Fig: Service-Based Architecture* 
 
 In the diagram:
 * NF A contains: 
@@ -70,7 +70,9 @@ Each connection between components uses specific protocols with predefined inter
 
 <img src="images/fig-2.svg" alt="P2P Architecture" width="40%">
 
-*Fig2: P2P Architecture* 
+*Fig: P2P Architecture* 
+
+This diagram illustrates a typical Point-to-Point architecture, highlighting the direct, dedicated interfaces between specific Network Functions. As depicted, each connection requires unique configuration, resulting in a tightly coupled network where scaling or adding new components introduces significant complexity.
 
 ## 4. Difference Between P2P and SBA
 
@@ -115,7 +117,9 @@ HTTP/2 is a major revision of the HTTP protocol that provides significant perfor
 
 <img src="images/fig-3.svg" alt="HTTP/1 vs HTTP/2" width="50%">
 
-*Fig3: HTTP/1 vs HTTP/2*
+*Fig: HTTP/1 vs HTTP/2*
+
+This figure visually contrasts the connection models of HTTP/1.1 and HTTP/2. It demonstrates how HTTP/1.1 relies on multiple sequential or parallel connections that can cause bottlenecks, whereas HTTP/2 efficiently multiplexes multiple data streams over a single persistent connection to enhance overall performance.
 
 ### HTTP/1.1 Limitations
 * Maximum 6 parallel connections per domain
@@ -174,7 +178,9 @@ Body: {session parameters in JSON}
 
 <img src="images/fig-4.svg" alt="Rest API Operation Flow" width="40%">
 
-*Fig4: Rest API Operation Flow*
+*Fig: Rest API Operation Flow*
+
+This diagram demonstrates a standard REST API operation flow within a Service-Based Architecture. It outlines how a service consumer initiates a request using standard HTTP methods and how the service producer processes that request to return a structured response, ensuring stateless and seamless communication.
 
 ### Advantages
 
