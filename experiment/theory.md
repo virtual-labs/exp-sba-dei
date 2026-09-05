@@ -3,9 +3,9 @@
 A service is a specific capability or function that one Network Function (NF) exposes to other authorized NFs through standardized Service-Based Interfaces (SBI). Services represent discrete operations that can be discovered, accessed, and consumed by other network components without requiring dedicated point-to-point connections.
 
 ### Service Producer and Consumer Model
-As shown in the diagram, each Network Function can act as both:
-* Service Producer: Exposing services that other NFs can consume
-* Service Consumer: Consuming services offered by other NFs
+As shown in **Figure 1**, each Network Function can act as both:
+* **Service Producer:** Exposing services that other NFs can consume
+* **Service Consumer:** Consuming services offered by other NFs
 
 ### Service Operations
 Network Functions communicate through four primary service operations over SBI:
@@ -16,12 +16,16 @@ Network Functions communicate through four primary service operations over SBI:
 
 ### Example Scenario
 
+To better understand this interaction, consider the architecture depicted in **Figure 1**.
 
-<img src="images/fig-1.svg" alt="[Service-Based Architecture" width="50%">
+<div align="center">
+  <img src="images/fig-1.svg" alt="Service-Based Architecture" width="50%">
+  <br>
+  <i><b>Figure 1:</b> Service-Based Architecture</i>
+</div>
+<br>
 
-*Fig: Service-Based Architecture* 
-
-In the diagram:
+In this architecture:
 * NF A contains: 
   * NF Service A1 (acting as Producer)
   * NF Service B1 (acting as Consumer)
@@ -64,15 +68,19 @@ Point-to-Point architecture represents traditional system design where component
 Each connection between components uses specific protocols with predefined interfaces.
 
 ### Characteristics
-* Static Configuration: All interfaces are preconfigured with fixed IP addresses and protocol parameters. Each component needs explicit configuration for every other component it communicates with.
-* Protocol Diversity: Different interfaces may use different protocols, requiring protocol-specific implementations and expertise.
-* Tight Coupling: Components are tightly integrated, creating dependencies where changes to one element often require modifications to connected elements.
+This traditional approach, illustrated in **Figure 2**, exhibits several key characteristics:
+* **Static Configuration:** All interfaces are preconfigured with fixed IP addresses and protocol parameters. Each component needs explicit configuration for every other component it communicates with.
+* **Protocol Diversity:** Different interfaces may use different protocols, requiring protocol-specific implementations and expertise.
+* **Tight Coupling:** Components are tightly integrated, creating dependencies where changes to one element often require modifications to connected elements.
 
-<img src="images/fig-2.svg" alt="P2P Architecture" width="40%">
+<div align="center">
+  <img src="images/fig-2.svg" alt="P2P Architecture" width="40%">
+  <br>
+  <i><b>Figure 2:</b> Typical Point-to-Point Architecture</i>
+</div>
+<br>
 
-*Fig: P2P Architecture* 
-
-This diagram illustrates a typical Point-to-Point architecture, highlighting the direct, dedicated interfaces between specific Network Functions. As depicted, each connection requires unique configuration, resulting in a tightly coupled network where scaling or adding new components introduces significant complexity.
+As highlighted in the diagram above, direct and dedicated interfaces are established between specific Network Functions. Each connection demands unique configuration, which results in a tightly coupled network. Consequently, scaling existing infrastructure or introducing new components adds significant complexity to the system.
 
 ## 4. Difference Between P2P and SBA
 
@@ -115,11 +123,18 @@ HTTP/2 is a major revision of the HTTP protocol that provides significant perfor
 
 ### Why HTTP/2 is Superior to HTTP/1.1
 
-<img src="images/fig-3.svg" alt="HTTP/1 vs HTTP/2" width="50%">
+The foundational differences between these two protocols lead to vastly different performance characteristics, as contrasted in **Figure 3**. 
 
-*Fig: HTTP/1 vs HTTP/2*
+<div align="center">
+  <img src="images/fig-3.svg" alt="HTTP/1 vs HTTP/2" width="50%">
+  <br>
+  <i><b>Figure 3:</b> Connection Models: HTTP/1.1 vs HTTP/2</i>
+</div>
+<br>
 
-This figure visually contrasts the connection models of HTTP/1.1 and HTTP/2. It demonstrates how HTTP/1.1 relies on multiple sequential or parallel connections that can cause bottlenecks, whereas HTTP/2 efficiently multiplexes multiple data streams over a single persistent connection to enhance overall performance.
+The visual comparison demonstrates how HTTP/1.1 relies on multiple sequential or parallel connections that frequently cause bottlenecks. In contrast, HTTP/2 efficiently multiplexes multiple data streams over a single persistent connection, significantly enhancing overall network performance.
+
+Based on this architecture, the protocols exhibit the following characteristics:
 
 ### HTTP/1.1 Limitations
 * Maximum 6 parallel connections per domain
@@ -156,31 +171,37 @@ All request and response bodies use JSON format for structured data representati
 
 ### Example REST API Operations
 
-Service Registration:
+The typical interaction between consumers and producers using these standard methods is outlined in **Figure 4**.
+
+<div align="center">
+  <img src="images/fig-4.svg" alt="Rest API Operation Flow" width="40%">
+  <br>
+  <i><b>Figure 4:</b> REST API Operation Flow in SBA</i>
+</div>
+<br>
+
+The flow demonstrates how a service consumer initiates a request and how the service producer processes that request to return a structured response, ensuring stateless and seamless communication. Some common operations include:
+
+**Service Registration:**
 ```http
 PUT /registry/v1/instances/{instanceId} HTTP/2
 Content-Type: application/json
-Body: {service profile in JSON}
-Service Discovery:
 
-http
-Copy code
-GET /discovery/v1/instances?type=ServiceA HTTP/2
-Session Creation:
-
-http
-Copy code
-POST /sessions/v1/contexts HTTP/2
-Content-Type: application/json
-Body: {session parameters in JSON}
+{service profile in JSON}
 ```
 
+**Service Discovery:**
+```http
+GET /discovery/v1/instances?type=ServiceA HTTP/2
+```
 
-<img src="images/fig-4.svg" alt="Rest API Operation Flow" width="40%">
+**Session Creation:**
+```http
+POST /sessions/v1/contexts HTTP/2
+Content-Type: application/json
 
-*Fig: Rest API Operation Flow*
-
-This diagram demonstrates a standard REST API operation flow within a Service-Based Architecture. It outlines how a service consumer initiates a request using standard HTTP methods and how the service producer processes that request to return a structured response, ensuring stateless and seamless communication.
+{session parameters in JSON}
+```
 
 ### Advantages
 
