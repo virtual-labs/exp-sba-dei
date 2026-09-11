@@ -1,0 +1,91 @@
+{
+  "Service": {
+    "startup": {
+      "initial": {
+        "delay": 0,
+        "level": "INFO",
+        "message": "{serviceName} service initialized",
+        "details": {
+          "type": "Service",
+          "endpoint": "dynamic",
+          "status": "Starting"
+        }
+      },
+
+      "ready": {
+        "delay": 300,
+        "level": "SUCCESS",
+        "message": "{serviceName} is ready to accept connections",
+        "details": {
+          "status": "OPERATIONAL",
+          "endpoint": "dynamic",
+          "ready": true
+        }
+      }
+    },
+    "connection": {
+      "outgoing_request": {
+        "delay": 0,
+        "level": "INFO",
+        "message": "Sending request to {targetService}",
+        "details": {
+          "method": "GET",
+          "endpoint": "dynamic",
+          "requestId": "req-{random}"
+        }
+      },
+      "incoming_request": {
+        "delay": 50,
+        "level": "INFO",
+        "message": "Received request from {sourceService}",
+        "details": {
+          "method": "GET",
+          "endpoint": "dynamic",
+          "requestId": "req-{random}"
+        }
+      },
+      "response_sent": {
+        "delay": 100,
+        "level": "SUCCESS",
+        "message": "Response sent to {sourceService}",
+        "details": {
+          "statusCode": 200,
+          "responseTime": "{responseTime}ms",
+          "requestId": "req-{random}"
+        }
+      },
+      "response_received": {
+        "delay": 150,
+        "level": "SUCCESS",
+        "message": "Response received from {targetService}",
+        "details": {
+          "statusCode": 200,
+          "responseTime": "{responseTime}ms",
+          "requestId": "req-{random}"
+        }
+      },
+      "connection_established": {
+        "delay": 200,
+        "level": "SUCCESS",
+        "message": "Connection established with {targetService}",
+        "details": {
+          "endpoint": "dynamic",
+          "protocol": "HTTP",
+          "status": "ACTIVE"
+        }
+      }
+    },
+    "health": {
+      "health_check": {
+        "delay": 0,
+        "level": "INFO",
+        "message": "Health check performed",
+        "details": {
+          "status": "healthy",
+          "uptime": "{uptime}s",
+          "endpoint": "dynamic"
+        }
+      }
+    }
+  }
+}
