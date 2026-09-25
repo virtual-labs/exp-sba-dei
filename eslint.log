@@ -1,0 +1,43 @@
+
+/home/runner/work/exp-sba-dei/exp-sba-dei/experiment/simulation/js/app.js
+  43:32  warning  'DataStore' is not defined          no-undef
+  46:32  warning  'LogEngine' is not defined          no-undef
+  49:37  warning  'ServiceManager' is not defined     no-undef
+  52:33  warning  'BusManager' is not defined         no-undef
+  55:40  warning  'ConnectionManager' is not defined  no-undef
+  58:37  warning  'CanvasRenderer' is not defined     no-undef
+  61:35  warning  'UIController' is not defined       no-undef
+
+/home/runner/work/exp-sba-dei/exp-sba-dei/experiment/simulation/js/bus-manager.js
+    8:7   warning  'BusManager' is defined but never used     no-unused-vars
+   19:78  warning  'name' is assigned a value but never used  no-unused-vars
+  293:33  warning  'busName' is defined but never used        no-unused-vars
+
+/home/runner/work/exp-sba-dei/exp-sba-dei/experiment/simulation/js/canvas-renderer.js
+   15:7   warning  'CanvasRenderer' is defined but never used  no-unused-vars
+  605:19  warning  'e' is defined but never used               no-unused-vars
+
+/home/runner/work/exp-sba-dei/exp-sba-dei/experiment/simulation/js/connection-manager.js
+   15:7   warning  'ConnectionManager' is defined but never used  no-unused-vars
+  151:32  warning  'targetId' is defined but never used           no-unused-vars
+
+/home/runner/work/exp-sba-dei/exp-sba-dei/experiment/simulation/js/data-store.js
+  15:7  warning  'DataStore' is defined but never used  no-unused-vars
+
+/home/runner/work/exp-sba-dei/exp-sba-dei/experiment/simulation/js/log-engine.js
+  13:7  warning  'LogEngine' is defined but never used  no-unused-vars
+
+/home/runner/work/exp-sba-dei/exp-sba-dei/experiment/simulation/js/nf-manager.js
+  15:7  warning  'NFManager' is defined but never used  no-unused-vars
+
+/home/runner/work/exp-sba-dei/exp-sba-dei/experiment/simulation/js/ui-controller.js
+    16:7   warning  'UIController' is defined but never used         no-unused-vars
+    65:19  warning  'serviceDef' is assigned a value but never used  no-unused-vars
+   297:48  warning  'data' is defined but never used                 no-unused-vars
+   829:23  warning  'portNum' is assigned a value but never used     no-unused-vars
+  1101:24  warning  'bus' is defined but never used                  no-unused-vars
+  1111:28  warning  'bus' is defined but never used                  no-unused-vars
+  1293:15  warning  'termBody' is assigned a value but never used    no-unused-vars
+
+✖ 24 problems (0 errors, 24 warnings)
+

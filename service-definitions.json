@@ -1,0 +1,19 @@
+{
+  "Service": {
+    "name": "Generic Service",
+    "description": "A configurable service that can connect to other services",
+    "color": "#3498db",
+    "icon": "simulation/images/icons/service.svg",
+    "functions": [
+      "HTTP/HTTPS Communication",
+      "Request/Response Handling",
+      "Service Discovery",
+      "Health Monitoring"
+    ],
+    "interfaces": [
+      "HTTP REST API",
+      "WebSocket",
+      "TCP/UDP"
+    ]
+  }
+}
