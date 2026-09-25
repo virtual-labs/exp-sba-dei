@@ -24,8 +24,7 @@ To better understand this interaction, consider the architecture depicted in **F
 
 <div align="center">
   <img src="images/fig-1.svg" alt="Service-Based Architecture" width="50%">
-  <br>
-  <i><b>Figure 1:</b> Service-Based Architecture</i>
+  <p><em>Figure 1: Service-Based Architecture</em></p>
 </div>
 <br>
 
@@ -79,8 +78,7 @@ This traditional approach, illustrated in **Figure 2**, exhibits several key cha
 
 <div align="center">
   <img src="images/fig-2.svg" alt="P2P Architecture" width="40%">
-  <br>
-  <i><b>Figure 2:</b> Typical Point-to-Point Architecture</i>
+  <p><em>Figure 2: Typical Point-to-Point Architecture</em></p>
 </div>
 <br>
 
@@ -131,8 +129,7 @@ The foundational differences between these two protocols lead to vastly differen
 
 <div align="center">
   <img src="images/fig-3.svg" alt="HTTP/1 vs HTTP/2" width="50%">
-  <br>
-  <i><b>Figure 3:</b> Connection Models: HTTP/1.1 vs HTTP/2</i>
+  <p><em>Figure 3: Connection Models: HTTP/1.1 vs HTTP/2</em></p>
 </div>
 <br>
 
@@ -179,8 +176,7 @@ The typical interaction between consumers and producers using these standard met
 
 <div align="center">
   <img src="images/fig-4.svg" alt="Rest API Operation Flow" width="40%">
-  <br>
-  <i><b>Figure 4:</b> REST API Operation Flow in SBA</i>
+  <p><em>Figure 4: REST API Operation Flow in SBA</em></p>
 </div>
 <br>
 
